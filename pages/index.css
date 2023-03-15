@@ -4,26 +4,54 @@
 @import url("../blocks/header.css");
 @import url("../blocks/profile.css");
 @import url("../blocks/card.css");
+@import url("../blocks/footer.css");
 
 @media screen and (max-width: 480px) {
+  .header__logo {
+    width: 126px;
+    height: 24px;
+    padding-top: 28px;
+    padding-left: 28px;
+  }
+
   .profile {
     flex-direction: column;
+  }
+
+  .profile__image {
+    margin-right: 0;
   }
 
   .profile__info {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: end;
     width: 100%;
+  }
+
+  .profile__title {
+    font-size: 22px;
+    line-height: 27px;
+    text-align: center;
+    margin-top: 28px;
   }
 
   .profile__description {
     width: 100%;
     text-align: center;
+    font-size: 14px;
+    line-height: 17px;
+    vertical-align: top;
+    margin-bottom: 36px;
   }
 
   .profile__add-button {
     margin: 0;
     width: 100%;
+  }
+
+  .page__section {
+    max-width: 282px;
   }
 }

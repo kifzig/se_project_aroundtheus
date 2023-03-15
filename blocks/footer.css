@@ -1,5 +1,12 @@
 .footer {
   font-family: "Inter";
-  color: #f4f4f4;
-  margin: 0;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #545454;
+}
+
+.footer__copyright {
+  max-width: 318px;
+  margin-top: 67px;
 }

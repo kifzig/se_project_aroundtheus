@@ -35,6 +35,7 @@
   background: transparent url(../images/add-button-plus-sign.svg) center
     no-repeat;
   margin-left: auto;
+  border: 2px solid white;
 }
 
 .profile__title {
@@ -47,8 +48,8 @@
 }
 
 .profile__description {
-  grid-area: description;
   font-family: "Inter";
+  grid-area: description;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
