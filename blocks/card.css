@@ -36,9 +36,16 @@
   padding-right: 20px;
   align-items: center;
   justify-content: space-between;
+}
+
+.card__caption {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   font-family: "Inter";
   font-size: 24px;
   font-style: bold;
+  font-weight: 900;
 }
 
 .card__like-button {
