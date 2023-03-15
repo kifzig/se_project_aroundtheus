@@ -14,9 +14,11 @@ With this website, view some of the most beautiful places in the U.S. through pi
 **Link to Project**
 
 - [View the deployed pages here](https://kifzig.github.io/se_project_aroundtheus/)
+
   **Figma**
 
 - [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
 
 **Plans for Improvement**
+
 This project is a work in progress and there are plans to add the ability to add photos to the gallery soon as well as more compatibility with more devices.
