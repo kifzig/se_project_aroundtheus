@@ -54,4 +54,8 @@
   .page__section {
     max-width: 282px;
   }
+
+  .footer__copyright {
+    margin-bottom: 36px;
+  }
 }
