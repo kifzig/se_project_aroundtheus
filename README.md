@@ -3,6 +3,7 @@
 ### Overview
 
 - Intro
+- Link to Project
 - Figma
 - Plans for Improvement
 
@@ -10,7 +11,10 @@
 
 With this website, view some of the most beautiful places in the U.S. through pictures. This project uses grid and flex box to show cards at different screen sizes using @media queries. It follows a Figma design below. It has other features like rounded corners and a round profile picture using border-radius. It is my first intentional attempt at responsive design.
 
-**Figma**
+**Link to Project**
+
+- [View the deployed pages here](https://kifzig.github.io/se_project_aroundtheus/)
+  **Figma**
 
 - [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
 
