@@ -31,6 +31,7 @@
   font-family: "Inter", sans-serif;
   font-size: 24px;
   font-weight: 900;
+  font-height: 29px;
   margin: 0;
 }
 
@@ -39,4 +40,8 @@
   width: 21px;
   height: 18px;
   border: none;
+}
+
+.card__like-button:hover {
+  opacity: 50%;
 }

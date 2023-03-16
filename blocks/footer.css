@@ -7,7 +7,12 @@
 }
 
 .footer__copyright {
-  max-width: 318px;
   margin-top: 67px;
   margin-bottom: 60px;
+}
+
+@media screen and (max-width: 480px) {
+  .footer__copyright {
+    margin-bottom: 36px;
+  }
 }
