@@ -20,6 +20,7 @@
     "description description";
   grid-template-columns: minmax(auto, 373px) auto;
   grid-gap: 9px 17px;
+  align-items: center;
 }
 
 .profile__edit-button {
@@ -27,6 +28,11 @@
   height: 24px;
   width: 24px;
   grid-area: button;
+  border: 1px solid #ffffff;
+}
+
+.profile__edit-button:hover {
+  opacity: 80%;
 }
 
 .profile__add-button {
@@ -36,6 +42,10 @@
     no-repeat;
   margin-left: auto;
   border: 2px solid white;
+}
+
+.profile__add-button:hover {
+  opacity: 80%;
 }
 
 .profile__title {
