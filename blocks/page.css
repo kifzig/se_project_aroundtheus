@@ -20,4 +20,8 @@
   .page__section {
     max-width: 282px;
   }
+
+  .page__content {
+    min-height: 0;
+  }
 }

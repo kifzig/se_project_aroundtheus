@@ -56,6 +56,9 @@
   font-weight: 500;
   grid-area: title;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__description {
@@ -65,6 +68,9 @@
   line-height: 22px;
   font-weight: 400;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 480px) {
@@ -80,7 +86,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: end;
+    align-items: baseline;
     width: 100%;
   }
 
@@ -91,6 +97,10 @@
     margin-top: 28px;
   }
 
+  .profile__edit-button {
+    height: 18px;
+    width: 18px;
+  }
   .profile__description {
     width: 100%;
     text-align: center;
