@@ -32,7 +32,7 @@
 }
 
 .profile__edit-button:hover {
-  opacity: 80%;
+  opacity: 60%;
 }
 
 .profile__add-button {
@@ -46,7 +46,7 @@
 }
 
 .profile__add-button:hover {
-  opacity: 80%;
+  opacity: 60%;
 }
 
 .profile__title {
@@ -103,9 +103,5 @@
   .profile__add-button {
     margin: 0;
     width: 100%;
-  }
-
-  .page__section {
-    max-width: 282px;
   }
 }

@@ -10,10 +10,6 @@
   
 }
 
-/* .header__line {
-  border: 1px solid #545454;
-  margin: 0;
-} */
 
 @media screen and (max-width: 480px) {
   .header__logo {
