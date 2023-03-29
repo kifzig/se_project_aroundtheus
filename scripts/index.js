@@ -29,9 +29,7 @@ let initialCards = [
 let editButton = document.querySelector(".profile__edit-button");
 
 function openModal() {
-  console.log("You have clicked.");
   let modal = document.querySelector(".modal");
-  console.log(modal);
   modal.classList.add("modal__opened");
 }
 
@@ -41,7 +39,6 @@ editButton.addEventListener("click", openModal);
 let modalCloseButton = document.querySelector(".modal__close");
 
 function closeModal() {
-  console.log("Close modal");
   let modal = document.querySelector(".modal");
   modal.classList.remove("modal__opened");
 }
