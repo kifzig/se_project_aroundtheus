@@ -25,7 +25,6 @@ let initialCards = [
   },
 ];
 
-/* Functionality for Opening the Edit Profile Modal */
 let editButton = document.querySelector(".profile__edit-button");
 
 function openModal() {
@@ -35,7 +34,6 @@ function openModal() {
 
 editButton.addEventListener("click", openModal);
 
-/* Functionality for Closing the Edit Profile Modal */
 let modalCloseButton = document.querySelector(".modal__close");
 
 function closeModal() {
