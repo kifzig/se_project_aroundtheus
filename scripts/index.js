@@ -67,3 +67,17 @@ function handleProfileFormSubmit(evt) {
 }
 
 modalForm.addEventListener("submit", handleProfileFormSubmit);
+
+/* Rending cards from array with html template element */
+
+function getCardElement(data) {
+  //Clone the template element with all its content and store in a cardElement variable
+  //Access the card title and image and store them in variables
+  //Set the path of the image to the link field of the object
+  //Set the image alt text to the name field of the object
+  //Set the card title to the name field of the object, too
+  //Return the ready HTML element with the filled in data
+}
+
+//Create a loop and run getCardElement over the array initialCards
+// In the loop, use appropriate built-in DOM method to add HTML element to this page
