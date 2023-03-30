@@ -25,15 +25,26 @@ let initialCards = [
   },
 ];
 
+// Form Fields field in with information from profile page
+const profileTitle = document.querySelector(".profile__title");
+const profileDesc = document.querySelector(".profile__description");
+
+const inputTitle = document.querySelector(".modal__input_type_title");
+const inputDesc = document.querySelector(".modal__input_type_description");
+
+/* Functionality for Opening the Edit Profile Modal */
 let editButton = document.querySelector(".profile__edit-button");
 
 function openModal() {
   let modal = document.querySelector(".modal");
   modal.classList.add("modal__opened");
+  inputTitle.value = profileTitle.textContent;
+  inputDesc.value = profileDesc.textContent;
 }
 
 editButton.addEventListener("click", openModal);
 
+/* Functionality for Closing the Edit Profile Modal */
 let modalCloseButton = document.querySelector(".modal__close");
 
 function closeModal() {
@@ -42,3 +53,17 @@ function closeModal() {
 }
 
 modalCloseButton.addEventListener("click", closeModal);
+
+/*Save edited title and description */
+
+const modalForm = document.querySelector(".modal__form");
+
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  console.log("Save button clicked");
+  profileTitle.textContent = inputTitle.value;
+  profileDesc.textContent = inputDesc.value;
+  closeModal();
+}
+
+modalForm.addEventListener("submit", handleProfileFormSubmit);
