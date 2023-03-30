@@ -70,14 +70,34 @@ modalForm.addEventListener("submit", handleProfileFormSubmit);
 
 /* Rending cards from array with html template element */
 
+let cardTemplate = document.querySelector("#card__template").content;
+
 function getCardElement(data) {
   //Clone the template element with all its content and store in a cardElement variable
+  let cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+
   //Access the card title and image and store them in variables
+  let cardName = data["name"];
+  let cardLink = data["link"];
+
   //Set the path of the image to the link field of the object
+  cardElement.querySelector(".card__image").src = cardLink;
+
   //Set the image alt text to the name field of the object
+  cardElement.querySelector(".card__image").alt = cardName;
+
   //Set the card title to the name field of the object, too
+  cardElement.querySelector(".card__caption").textContent = cardName;
+
   //Return the ready HTML element with the filled in data
+  return cardElement;
 }
 
-//Create a loop and run getCardElement over the array initialCards
+// Create a loop and run getCardElement over the array initialCards
 // In the loop, use appropriate built-in DOM method to add HTML element to this page
+
+let cardsList = document.querySelector(".cards__list");
+for (card in initialCards) {
+  let newCardElement = getCardElement(initialCards[card]);
+  cardsList.append(newCardElement);
+}
