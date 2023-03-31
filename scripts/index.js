@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -33,26 +33,34 @@ const inputTitle = document.querySelector(".modal__input_type_title");
 const inputDesc = document.querySelector(".modal__input_type_description");
 
 /* Functionality for Opening the Edit Profile Modal */
-let editButton = document.querySelector(".profile__edit-button");
+const editButton = document.querySelector(".profile__edit-button");
 
-function openModal() {
-  let modal = document.querySelector(".modal");
+function openModal(modal) {
   modal.classList.add("modal__opened");
   inputTitle.value = profileTitle.textContent;
   inputDesc.value = profileDesc.textContent;
 }
 
-editButton.addEventListener("click", openModal);
+function openEditProfileModal() {
+  const modal = document.querySelector(".modal");
+  openModal(modal);
+}
+
+editButton.addEventListener("click", openEditProfileModal);
 
 /* Functionality for Closing the Edit Profile Modal */
-let modalCloseButton = document.querySelector(".modal__close");
+const modalCloseButton = document.querySelector(".modal__close");
 
-function closeModal() {
-  let modal = document.querySelector(".modal");
+function closeModal(modal) {
   modal.classList.remove("modal__opened");
 }
 
-modalCloseButton.addEventListener("click", closeModal);
+function closeEditProfileModal() {
+  const modal = document.querySelector(".modal");
+  closeModal(modal);
+}
+
+modalCloseButton.addEventListener("click", closeEditProfileModal);
 
 /*Save edited title and description */
 
@@ -60,25 +68,23 @@ const modalForm = document.querySelector(".modal__form");
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  console.log("Save button clicked");
   profileTitle.textContent = inputTitle.value;
   profileDesc.textContent = inputDesc.value;
-  closeModal();
+  closeEditProfileModal();
 }
 
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 
-/* Rending cards from array with html template element */
-
-let cardTemplate = document.querySelector("#card__template").content;
+/* Rendering cards from array with html template element */
+const cardTemplate = document.querySelector("#card__template").content;
 
 function getCardElement(data) {
   //Clone the template element with all its content and store in a cardElement variable
-  let cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
   //Access the card title and image and store them in variables
-  let cardName = data["name"];
-  let cardLink = data["link"];
+  const cardName = data["name"];
+  const cardLink = data["link"];
 
   //Set the path of the image to the link field of the object
   cardElement.querySelector(".card__image").src = cardLink;
@@ -87,7 +93,8 @@ function getCardElement(data) {
   cardElement.querySelector(".card__image").alt = cardName;
 
   //Set the card title to the name field of the object, too
-  cardElement.querySelector(".card__caption").textContent = cardName;
+  cardCaption = cardElement.querySelector(".card__caption");
+  cardCaption.textContent = cardName;
 
   //Return the ready HTML element with the filled in data
   return cardElement;
@@ -96,7 +103,7 @@ function getCardElement(data) {
 // Create a loop and run getCardElement over the array initialCards
 // In the loop, use appropriate built-in DOM method to add HTML element to this page
 
-let cardsList = document.querySelector(".cards__list");
+const cardsList = document.querySelector(".cards__list");
 for (card in initialCards) {
   let newCardElement = getCardElement(initialCards[card]);
   cardsList.append(newCardElement);

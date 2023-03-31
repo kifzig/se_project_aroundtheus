@@ -12,6 +12,7 @@
     />
     <title>Around the U.S.</title>
     <link href="./pages/index.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-con" href="favicon.ico" />
   </head>
 
   <body class="page">
@@ -72,19 +73,21 @@
     <div class="modal">
       <div class="modal__container">
         <button class="modal__close" type="button"></button>
-        <p class="modal__heading">Edit profile</p>
+        <h2 class="modal__heading">Edit profile</h2>
         <form class="modal__form">
           <input
             type="text"
             name="title"
             class="modal__input modal__input_type_title"
             placeholder="Name"
+            required
           />
           <input
             type="text"
             name="description"
             class="modal__input modal__input_type_description"
             placeholder="Role"
+            required
           />
           <button class="modal__button" type="submit">Save</button>
         </form>

@@ -16,6 +16,12 @@
   min-height: 100vh;
 }
 
+@media screen and (max-width: 880px) {
+  .page__content {
+    padding: 0 19px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .page__section {
     max-width: 282px;
