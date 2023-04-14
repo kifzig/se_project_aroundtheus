@@ -104,7 +104,8 @@ function getCardElement(data) {
 // In the loop, use appropriate built-in DOM method to add HTML element to this page
 
 const cardsList = document.querySelector(".cards__list");
-for (card in initialCards) {
-  const newCardElement = getCardElement(initialCards[card]);
+
+initialCards.forEach((card) => {
+  const newCardElement = getCardElement(card);
   cardsList.append(newCardElement);
-}
+});
