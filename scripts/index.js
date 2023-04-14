@@ -105,7 +105,7 @@ function getCardElement(data) {
 
 const cardsList = document.querySelector(".cards__list");
 
-// initialCards.forEach((card) => {
-//   const newCardElement = getCardElement(card);
-//   cardsList.append(newCardElement);
-// });
+initialCards.forEach((card) => {
+  const newCardElement = getCardElement(card);
+  cardsList.append(newCardElement);
+});
