@@ -25,12 +25,16 @@ const initialCards = [
   },
 ];
 
-// Form Fields fill in with information from profile page
+// Form Fields filled in with information from profile page
 const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 
 const inputTitle = document.querySelector(".modal__input_type_title");
 const inputDesc = document.querySelector(".modal__input_type_description");
+const inputCardPlace = document.querySelector(".modal__input_type_place");
+const inputCardURL = document.querySelector(".modal__input_type_url");
+
+const cardsList = document.querySelector(".cards__list");
 
 /* Functionality for Opening the Edit Profile Modal */
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -84,9 +88,9 @@ function closeAddImageModal() {
 
 modalAddImageCloseButton.addEventListener("click", closeAddImageModal);
 
-/*Save edited title and description */
+/*Save edited profile title and description */
 
-const modalForm = document.querySelector(".modal__form");
+const modalEditProfileForm = document.querySelector("#edit-modal");
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -95,7 +99,23 @@ function handleProfileFormSubmit(evt) {
   closeEditProfileModal();
 }
 
-modalForm.addEventListener("submit", handleProfileFormSubmit);
+modalEditProfileForm.addEventListener("submit", handleProfileFormSubmit);
+
+/* Add new image card */
+const modalAddImageCardForm = document.querySelector("#add-image-form");
+
+function handleAddImageFormSubmit(evt) {
+  evt.preventDefault();
+  cardPlace = inputCardPlace.value;
+  cardUrl = inputCardURL.value;
+  newCard = { name: cardPlace, link: cardUrl };
+  newCardElement = getCardElement(newCard);
+  cardsList.prepend(newCardElement);
+  modalAddImageCardForm.reset();
+  closeAddImageModal();
+}
+
+modalAddImageCardForm.addEventListener("submit", handleAddImageFormSubmit);
 
 /* Rendering cards from array with html template element */
 const cardTemplate = document.querySelector("#card__template").content;
@@ -125,9 +145,9 @@ function getCardElement(data) {
 // Create a loop and run getCardElement over the array initialCards
 // In the loop, use appropriate built-in DOM method to add HTML element to this page
 
-const cardsList = document.querySelector(".cards__list");
-
 initialCards.forEach((card) => {
   const newCardElement = getCardElement(card);
   cardsList.append(newCardElement);
 });
+
+refreshCards();
