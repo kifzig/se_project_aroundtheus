@@ -70,11 +70,13 @@
         <p class="footer__copyright">&copy; 2023 Around the U.S.</p>
       </footer>
     </div>
-    <div class="modal">
+
+    <!-- Edit Modal-->
+    <div class="modal" id="edit-modal">
       <div class="modal__container">
         <button class="modal__close" type="button"></button>
         <h2 class="modal__heading">Edit profile</h2>
-        <form class="modal__form">
+        <form class="modal__form" id="edit-profile-form">
           <input
             type="text"
             name="title"
@@ -93,6 +95,36 @@
         </form>
       </div>
     </div>
+
+    <!--Add Card Modal-->
+    <div class="modal" id="add-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="modal-add-image-close"
+          type="button"
+        ></button>
+        <h2 class="modal__heading">New Place</h2>
+        <form class="modal__form" id="add-image-form">
+          <input
+            type="text"
+            name="place"
+            class="modal__input modal__input_type_place"
+            placeholder="Title"
+            required
+          />
+          <input
+            type="text"
+            name="url"
+            class="modal__input modal__input_type_url"
+            placeholder="Image URL"
+            required
+          />
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
     <script src="./scripts/index.js" defer></script>
   </body>
 </html>

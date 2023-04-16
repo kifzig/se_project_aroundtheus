@@ -25,7 +25,7 @@ const initialCards = [
   },
 ];
 
-// Form Fields field in with information from profile page
+// Form Fields fill in with information from profile page
 const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 
@@ -33,7 +33,7 @@ const inputTitle = document.querySelector(".modal__input_type_title");
 const inputDesc = document.querySelector(".modal__input_type_description");
 
 /* Functionality for Opening the Edit Profile Modal */
-const editButton = document.querySelector(".profile__edit-button");
+const editProfileButton = document.querySelector(".profile__edit-button");
 
 function openModal(modal) {
   modal.classList.add("modal__opened");
@@ -42,25 +42,47 @@ function openModal(modal) {
 }
 
 function openEditProfileModal() {
-  const modal = document.querySelector(".modal");
+  const modal = document.querySelector("#edit-modal");
   openModal(modal);
 }
 
-editButton.addEventListener("click", openEditProfileModal);
+editProfileButton.addEventListener("click", openEditProfileModal);
 
 /* Functionality for Closing the Edit Profile Modal */
-const modalCloseButton = document.querySelector(".modal__close");
+const modalEditProfileCloseButton = document.querySelector(".modal__close");
 
 function closeModal(modal) {
   modal.classList.remove("modal__opened");
 }
 
 function closeEditProfileModal() {
-  const modal = document.querySelector(".modal");
+  const modal = document.querySelector("#edit-modal");
   closeModal(modal);
 }
 
-modalCloseButton.addEventListener("click", closeEditProfileModal);
+modalEditProfileCloseButton.addEventListener("click", closeEditProfileModal);
+
+/* Functionality for Opening the Add Image Modal */
+const addButton = document.querySelector(".profile__add-button");
+
+function openAddImageModal() {
+  const addModal = document.querySelector("#add-modal");
+  openModal(addModal);
+}
+
+addButton.addEventListener("click", openAddImageModal);
+
+/* Functionality for Closing Add Image Modal */
+const modalAddImageCloseButton = document.querySelector(
+  "#modal-add-image-close"
+);
+
+function closeAddImageModal() {
+  const modal = document.querySelector("#add-modal");
+  closeModal(modal);
+}
+
+modalAddImageCloseButton.addEventListener("click", closeAddImageModal);
 
 /*Save edited title and description */
 
