@@ -120,6 +120,8 @@ modalAddImageCardForm.addEventListener("submit", handleAddImageFormSubmit);
 /* Rendering cards from array with html template element */
 const cardTemplate = document.querySelector("#card__template").content;
 
+/* Create a new card */
+
 function getCardElement(data) {
   //Clone the template element with all its content and store in a cardElement variable
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -138,7 +140,28 @@ function getCardElement(data) {
   cardCaption = cardElement.querySelector(".card__caption");
   cardCaption.textContent = cardName;
 
-  //Return the ready HTML element with the filled in data
+  // Like button
+  const likeButton = cardElement.querySelector(".card__like-button");
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
+  });
+
+  //
+
+  // Delete a card - button and functionality
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
+
+  // TODO Add click listener to cardImage element
+  // --TODO openModal with previewImageModal --> add to index.html
+  const cardImage = cardElement.querySelector(".card__image");
+  cardImage.addEventListener("click", () => {
+    console.log("You clicked the image.");
+  });
+
+  // Return the ready HTML element with the filled in data
   return cardElement;
 }
 
@@ -149,5 +172,3 @@ initialCards.forEach((card) => {
   const newCardElement = getCardElement(card);
   cardsList.append(newCardElement);
 });
-
-refreshCards();
