@@ -56,10 +56,14 @@
   position: absolute;
   top: 24px;
   right: 17px;
-  width: 5px;
-  height: 18px;
+  width: 18px;
+  height: 20px;
   background: transparent url("../images/delete-card-trashcan.svg") center
     no-repeat;
   border: none;
   cursor: pointer;
+}
+
+.card__delete-button:hover {
+  opacity: 0.6;
 }
