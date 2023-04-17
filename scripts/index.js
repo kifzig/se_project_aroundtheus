@@ -29,18 +29,18 @@ const initialCards = [
 const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 
-//Input for profile form modal
+// Input for profile form modal
 const inputTitle = document.querySelector(".modal__input_type_title");
 const inputDesc = document.querySelector(".modal__input_type_description");
 
-//Input for add image modal
+// Input for add image modal
 const inputCardPlace = document.querySelector(".modal__input_type_place");
 const inputCardURL = document.querySelector(".modal__input_type_url");
 
-//List of all cards with images
+// List of all cards with images
 const cardsList = document.querySelector(".cards__list");
 
-/* Functionality for Opening the Edit Profile Modal */
+// Functionality for Opening the Edit Profile Modal
 const editProfileButton = document.querySelector(".profile__edit-button");
 
 function openModal(modal) {
@@ -56,7 +56,7 @@ function openEditProfileModal() {
 
 editProfileButton.addEventListener("click", openEditProfileModal);
 
-/* Functionality for Closing the Edit Profile Modal */
+// Functionality for Closing the Edit Profile Modal
 const modalEditProfileCloseButton = document.querySelector(".modal__close");
 
 function closeModal(modal) {
@@ -70,7 +70,7 @@ function closeEditProfileModal() {
 
 modalEditProfileCloseButton.addEventListener("click", closeEditProfileModal);
 
-/* Functionality for Opening the Add Image Modal */
+// Functionality for Opening the Add Image Modal
 const addButton = document.querySelector(".profile__add-button");
 
 function openAddImageModal() {
@@ -92,7 +92,8 @@ function closeAddImageModal() {
 
 modalAddImageCloseButton.addEventListener("click", closeAddImageModal);
 
-/*Save edited profile title and description */
+// Functionality for Save Submit Button Add Image Modal
+// Save new Title (Name on Profile) and Description (Role or Job Title)
 
 const modalEditProfileForm = document.querySelector("#edit-modal");
 
@@ -105,7 +106,7 @@ function handleProfileFormSubmit(evt) {
 
 modalEditProfileForm.addEventListener("submit", handleProfileFormSubmit);
 
-/* Add new image card */
+// Add new image card
 const modalAddImageCardForm = document.querySelector("#add-image-form");
 
 function handleAddImageFormSubmit(evt) {
@@ -121,10 +122,10 @@ function handleAddImageFormSubmit(evt) {
 
 modalAddImageCardForm.addEventListener("submit", handleAddImageFormSubmit);
 
-/* Rendering cards from array with html template element */
+// Rendering cards from array with html template element
 const cardTemplate = document.querySelector("#card__template").content;
 
-/* Create a new card */
+// Create a new card
 
 function getCardElement(data) {
   //Clone the template element with all its content and store in a cardElement variable
@@ -144,23 +145,24 @@ function getCardElement(data) {
   cardCaption = cardElement.querySelector(".card__caption");
   cardCaption.textContent = cardName;
 
-  // Like button
+  // Create like button functionality once card is created
   const likeButton = cardElement.querySelector(".card__like-button");
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
   });
 
-  // Delete a card - button and functionality
+  // Create delete button functionality once card is created
   const deleteButton = cardElement.querySelector(".card__delete-button");
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
 
-  // Open Image Preview by Clicking on Image in Card
+  // Create Open Image Preview functionality - click card image for preview modal
 
-  //Picture needs a listener and needs to be clickable
+  // Select card image for clickable space
   const cardImage = cardElement.querySelector(".card__image");
 
+  // Function that opens Preview Image Modal with correct image and caption
   function openPreviewImageModal() {
     const previewModal = document.querySelector("#preview-image-modal");
     openModal(previewModal);
@@ -171,6 +173,7 @@ function getCardElement(data) {
     previewImage.alt = cardName;
   }
 
+  // When card image is clicked is launches the modal
   cardImage.addEventListener("click", () => {
     openPreviewImageModal();
   });
