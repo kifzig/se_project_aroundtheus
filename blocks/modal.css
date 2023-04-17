@@ -104,12 +104,12 @@
   position: relative;
 }
 
-.modal__preview__image {
+.modal__preview_image {
   max-width: 75vw;
   max-height: 75vh;
 }
 
-.modal__preview__caption {
+.modal__preview_caption {
   position: absolute;
   bottom: -20px;
   font-family: "Inter", sans-serif;
@@ -144,7 +144,7 @@
     padding-left: 0;
   }
 
-  .modal__preview__image {
+  .modal__preview_image {
     max-width: 240px;
     max-height: 300px;
   }

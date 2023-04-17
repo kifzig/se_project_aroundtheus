@@ -164,9 +164,9 @@ function getCardElement(data) {
   function openPreviewImageModal() {
     const previewModal = document.querySelector("#preview-image-modal");
     openModal(previewModal);
-    let previewCaption = document.querySelector(".modal__preview__caption");
+    let previewCaption = document.querySelector(".modal__preview_caption");
     previewCaption.textContent = cardName;
-    let previewImage = document.querySelector(".modal__preview__image");
+    let previewImage = document.querySelector(".modal__preview_image");
     previewImage.src = cardLink;
     previewImage.alt = cardName;
   }
