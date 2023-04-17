@@ -29,25 +29,29 @@ const initialCards = [
 const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 
+//Input for profile form modal
 const inputTitle = document.querySelector(".modal__input_type_title");
 const inputDesc = document.querySelector(".modal__input_type_description");
+
+//Input for add image modal
 const inputCardPlace = document.querySelector(".modal__input_type_place");
 const inputCardURL = document.querySelector(".modal__input_type_url");
 
+//List of all cards with images
 const cardsList = document.querySelector(".cards__list");
 
 /* Functionality for Opening the Edit Profile Modal */
 const editProfileButton = document.querySelector(".profile__edit-button");
 
 function openModal(modal) {
-  modal.classList.add("modal__opened");
-  inputTitle.value = profileTitle.textContent;
-  inputDesc.value = profileDesc.textContent;
+  modal.classList.toggle("modal__opened");
 }
 
 function openEditProfileModal() {
   const modal = document.querySelector("#edit-modal");
   openModal(modal);
+  inputTitle.value = profileTitle.textContent;
+  inputDesc.value = profileDesc.textContent;
 }
 
 editProfileButton.addEventListener("click", openEditProfileModal);
@@ -146,19 +150,45 @@ function getCardElement(data) {
     likeButton.classList.toggle("card__like-button_active");
   });
 
-  //
-
   // Delete a card - button and functionality
   const deleteButton = cardElement.querySelector(".card__delete-button");
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
 
-  // TODO Add click listener to cardImage element
-  // --TODO openModal with previewImageModal --> add to index.html
+  // Open Image Preview by Clicking on Image in Card
+
+  //Picture needs a listener and needs to be clickable
   const cardImage = cardElement.querySelector(".card__image");
+
+  function openPreviewImageModal() {
+    const previewModal = document.querySelector("#preview-image-modal");
+    openModal(previewModal);
+    let previewCaption = document.querySelector(".modal__preview__caption");
+    previewCaption.textContent = cardName;
+    let previewImage = document.querySelector(".modal__preview__image");
+    previewImage.src = cardLink;
+  }
+
   cardImage.addEventListener("click", () => {
-    console.log("You clicked the image.");
+    console.log("Click Open Preview");
+    openPreviewImageModal();
+  });
+
+  // Close Image Preview by Clicking on X
+
+  function closeImagePreviewModal() {
+    const modal = document.querySelector("#preview-image-modal");
+    closeModal(modal);
+  }
+
+  const closePreviewImageModalButton = document.querySelector(
+    "#modal-preview-image-close"
+  );
+
+  closePreviewImageModalButton.addEventListener("click", () => {
+    console.log("Click Close Preview");
+    closeImagePreviewModal();
   });
 
   // Return the ready HTML element with the filled in data

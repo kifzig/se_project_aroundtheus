@@ -1,0 +1,19 @@
+.preview {
+  position: relative;
+}
+
+.preview__image {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+.preview__caption {
+  position: absolute;
+  bottom: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  color: #fff;
+  margin: 0;
+}
