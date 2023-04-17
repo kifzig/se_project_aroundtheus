@@ -168,10 +168,10 @@ function getCardElement(data) {
     previewCaption.textContent = cardName;
     let previewImage = document.querySelector(".modal__preview__image");
     previewImage.src = cardLink;
+    previewImage.alt = cardName;
   }
 
   cardImage.addEventListener("click", () => {
-    console.log("Click Open Preview");
     openPreviewImageModal();
   });
 
@@ -187,7 +187,6 @@ function getCardElement(data) {
   );
 
   closePreviewImageModalButton.addEventListener("click", () => {
-    console.log("Click Close Preview");
     closeImagePreviewModal();
   });
 
