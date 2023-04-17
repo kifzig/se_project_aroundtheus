@@ -29,7 +29,7 @@ const initialCards = [
 const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 
-// Input for profile form modal
+// Input for edit profile form modal
 const inputTitle = document.querySelector(".modal__input_type_title");
 const inputDesc = document.querySelector(".modal__input_type_description");
 
@@ -44,23 +44,29 @@ const cardsList = document.querySelector(".cards__list");
 const editProfileButton = document.querySelector(".profile__edit-button");
 
 function openModal(modal) {
-  modal.classList.toggle("modal__opened");
+  modal.classList.toggle("modal_opened");
+}
+
+function fillProfileForm(profileTitle, profileDesc) {
+  inputTitle.value = profileTitle;
+  inputDesc.value = profileDesc;
 }
 
 function openEditProfileModal() {
-  const modal = document.querySelector("#edit-modal");
-  openModal(modal);
-  inputTitle.value = profileTitle.textContent;
-  inputDesc.value = profileDesc.textContent;
+  const openEditProfileModal = document.querySelector("#edit-modal");
+  openModal(openEditProfileModal);
+  fillProfileForm(profileTitle.textContent, profileDesc.textContent);
 }
 
 editProfileButton.addEventListener("click", openEditProfileModal);
 
 // Functionality for Closing the Edit Profile Modal
-const modalEditProfileCloseButton = document.querySelector(".modal__close");
+const modalEditProfileCloseButton = document.querySelector(
+  ".modal__close-button"
+);
 
 function closeModal(modal) {
-  modal.classList.remove("modal__opened");
+  modal.classList.remove("modal_opened");
 }
 
 function closeEditProfileModal() {
@@ -131,15 +137,19 @@ function getCardElement(data) {
   //Clone the template element with all its content and store in a cardElement variable
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
-  //Access the card title and image and store them in variables
+  //Access the card title and image that was passed in and store them in variables
   const cardName = data["name"];
   const cardLink = data["link"];
 
+  // Get card IMG element from the templated cardelement
+  const cardImage = cardElement.querySelector(".card__image");
+
   //Set the path of the image to the link field of the object
-  cardElement.querySelector(".card__image").src = cardLink;
+  // cardElement.querySelector(".card__image").src = cardLink;
+  cardImage.src = cardLink;
 
   //Set the image alt text to the name field of the object
-  cardElement.querySelector(".card__image").alt = cardName;
+  cardImage.alt = cardName;
 
   //Set the card title to the name field of the object, too
   cardCaption = cardElement.querySelector(".card__caption");
@@ -148,7 +158,7 @@ function getCardElement(data) {
   // Create like button functionality once card is created
   const likeButton = cardElement.querySelector(".card__like-button");
   likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
+    likeButton.classList.add("card__like-button_active");
   });
 
   // Create delete button functionality once card is created
@@ -159,16 +169,15 @@ function getCardElement(data) {
 
   // Create Open Image Preview functionality - click card image for preview modal
 
-  // Select card image for clickable space
-  const cardImage = cardElement.querySelector(".card__image");
+  //Get element for Preview Image Modal in order to update with image and caption
+  const previewImageModal = document.querySelector("#preview-image-modal");
 
   // Function that opens Preview Image Modal with correct image and caption
   function openPreviewImageModal() {
-    const previewModal = document.querySelector("#preview-image-modal");
-    openModal(previewModal);
-    let previewCaption = document.querySelector(".modal__preview_caption");
+    openModal(previewImageModal);
+    const previewCaption = document.querySelector(".modal__preview_caption");
     previewCaption.textContent = cardName;
-    let previewImage = document.querySelector(".modal__preview_image");
+    const previewImage = document.querySelector(".modal__preview_image");
     previewImage.src = cardLink;
     previewImage.alt = cardName;
   }
@@ -181,8 +190,7 @@ function getCardElement(data) {
   // Close Image Preview by Clicking on X
 
   function closeImagePreviewModal() {
-    const modal = document.querySelector("#preview-image-modal");
-    closeModal(modal);
+    closeModal(previewImageModal);
   }
 
   const closePreviewImageModalButton = document.querySelector(
