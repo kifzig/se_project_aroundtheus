@@ -128,6 +128,22 @@ function handleAddImageFormSubmit(evt) {
 
 modalAddImageCardForm.addEventListener("submit", handleAddImageFormSubmit);
 
+//Get element for Preview Image Modal in order to update with image and caption
+const previewImageModal = document.querySelector("#preview-image-modal");
+
+// Close Image Preview by Clicking on X
+function closeImagePreviewModal() {
+  closeModal(previewImageModal);
+}
+
+const closePreviewImageModalButton = document.querySelector(
+  "#modal-preview-image-close"
+);
+
+closePreviewImageModalButton.addEventListener("click", () => {
+  closeImagePreviewModal();
+});
+
 // Rendering cards from array with html template element
 const cardTemplate = document.querySelector("#card__template").content;
 
@@ -158,7 +174,7 @@ function getCardElement(data) {
   // Create like button functionality once card is created
   const likeButton = cardElement.querySelector(".card__like-button");
   likeButton.addEventListener("click", () => {
-    likeButton.classList.add("card__like-button_active");
+    likeButton.classList.toggle("card__like-button_active");
   });
 
   // Create delete button functionality once card is created
@@ -168,9 +184,6 @@ function getCardElement(data) {
   });
 
   // Create Open Image Preview functionality - click card image for preview modal
-
-  //Get element for Preview Image Modal in order to update with image and caption
-  const previewImageModal = document.querySelector("#preview-image-modal");
 
   // Function that opens Preview Image Modal with correct image and caption
   function openPreviewImageModal() {
@@ -185,20 +198,6 @@ function getCardElement(data) {
   // When card image is clicked is launches the modal
   cardImage.addEventListener("click", () => {
     openPreviewImageModal();
-  });
-
-  // Close Image Preview by Clicking on X
-
-  function closeImagePreviewModal() {
-    closeModal(previewImageModal);
-  }
-
-  const closePreviewImageModalButton = document.querySelector(
-    "#modal-preview-image-close"
-  );
-
-  closePreviewImageModalButton.addEventListener("click", () => {
-    closeImagePreviewModal();
   });
 
   // Return the ready HTML element with the filled in data
