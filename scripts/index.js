@@ -44,7 +44,7 @@ const cardsList = document.querySelector(".cards__list");
 const editProfileButton = document.querySelector(".profile__edit-button");
 
 function openModal(modal) {
-  modal.classList.toggle("modal_opened");
+  modal.classList.add("modal_opened");
 }
 
 function fillProfileForm(profileTitle, profileDesc) {
@@ -53,8 +53,8 @@ function fillProfileForm(profileTitle, profileDesc) {
 }
 
 function openEditProfileModal() {
-  const openEditProfileModal = document.querySelector("#edit-modal");
-  openModal(openEditProfileModal);
+  const editProfileModal = document.querySelector("#edit-modal");
+  openModal(editProfileModal);
   fillProfileForm(profileTitle.textContent, profileDesc.textContent);
 }
 
