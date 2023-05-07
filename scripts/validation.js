@@ -31,15 +31,22 @@ function hasInvalidInput(inputList) {
 /* disableButton */
 /* enableButton */
 
-function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
-  if (hasInvalidInput(inputEls)) {
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.disabled = true;
-    return;
-  }
+function enableButton(submitButton, inactiveButtonClass) {
+  submitButton.classList.add(inactiveButtonClass);
+  submitButton.disabled = true;
+}
 
+function disableButton(submitButton, inactiveButtonClass) {
   submitButton.classList.remove(inactiveButtonClass);
   submitButton.disabled = false;
+}
+
+function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
+  if (hasInvalidInput(inputEls)) {
+    enableButton(submitButton, inactiveButtonClass);
+    return;
+  }
+  disableButton(submitButton, inactiveButtonClass);
 }
 
 function setEventListeners(formEl, options) {
