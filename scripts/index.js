@@ -59,6 +59,7 @@ function openEditProfileModal() {
   fillProfileForm(profileTitle.textContent, profileDesc.textContent);
 }
 
+// Functionality for closing modals with Escape key
 function closeWithEscape(e, modal) {
   if (e.key == "Escape") {
     closeModal(modal);
@@ -119,6 +120,21 @@ function handleProfileFormSubmit(evt) {
 }
 
 modalEditProfileForm.addEventListener("submit", handleProfileFormSubmit);
+
+//Functionality for clicking outside of the modal form to close it
+
+const modals = document.querySelectorAll(".modal");
+modals.forEach((modalElement) => {
+  modalElement.addEventListener("click", (evt) => {
+    console.log(evt.target);
+    if (
+      evt.target.classList.contains("modal") ||
+      evt.target.classList.contains("modal__close-button")
+    ) {
+      closeModal(modalElement);
+    }
+  });
+});
 
 // Add new image card
 const modalAddImageCardForm = document.querySelector("#add-image-form");
