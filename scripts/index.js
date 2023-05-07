@@ -45,6 +45,7 @@ const editProfileButton = document.querySelector(".profile__edit-button");
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", (e) => closeWithEscape(e, modal));
 }
 
 function fillProfileForm(profileTitle, profileDesc) {
@@ -58,6 +59,12 @@ function openEditProfileModal() {
   fillProfileForm(profileTitle.textContent, profileDesc.textContent);
 }
 
+function closeWithEscape(e, modal) {
+  if (e.key == "Escape") {
+    closeModal(modal);
+  }
+}
+
 editProfileButton.addEventListener("click", openEditProfileModal);
 
 // Functionality for Closing the Edit Profile Modal
@@ -67,6 +74,7 @@ const modalEditProfileCloseButton = document.querySelector(
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", (e) => closeWithEscape(e, modal));
 }
 
 function closeEditProfileModal() {
