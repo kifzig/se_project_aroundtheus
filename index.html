@@ -93,7 +93,7 @@
             maxlength="40"
             required
           />
-          <span class="modal__error"></span>
+          <span class="modal__error" id="title-name-error"></span>
           <input
             type="text"
             name="description"
@@ -101,11 +101,12 @@
             class="modal__input modal__input_type_description"
             placeholder="Role"
             minlength="2"
-            maxlength="40"
+            maxlength="200"
             required
           />
+          <span class="modal__error" id="title-description-error"></span>
 
-          <button class="modal__button" type="submit">Save</button>
+          <button class="modal__button" type="submit" disabled>Save</button>
         </form>
       </div>
     </div>
@@ -134,7 +135,7 @@
             placeholder="Image URL"
             required
           />
-          <button class="modal__button" type="submit">Save</button>
+          <button class="modal__button" type="submit" disabled>Save</button>
         </form>
       </div>
     </div>
