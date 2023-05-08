@@ -145,8 +145,8 @@ function handleAddImageFormSubmit(evt) {
   const newCardElement = getCardElement(newCard);
   cardsList.prepend(newCardElement);
   modalAddImageCardForm.reset();
-  inputList = [inputCardPlace, inputCardURL];
-  submitButton = modalAddImageCardForm.querySelector(".modal__button");
+  const inputList = [inputCardPlace, inputCardURL];
+  const submitButton = modalAddImageCardForm.querySelector(".modal__button");
   toggleButtonState(inputList, submitButton, config);
   closeAddImageModal();
 }
