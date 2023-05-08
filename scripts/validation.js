@@ -27,10 +27,6 @@ function hasInvalidInput(inputList) {
   return !inputList.every((inputEl) => inputEl.validity.valid);
 }
 
-/*Create 2 more functions out of toggleButtonState */
-/* disableButton */
-/* enableButton */
-
 function enableButton(submitButton, inactiveButtonClass) {
   submitButton.classList.add(inactiveButtonClass);
   submitButton.disabled = true;
@@ -63,8 +59,17 @@ function setEventListeners(formEl, options) {
   });
 }
 
+/* Code in later
+function resetFormValidation(inputEls, submitButton, options) {
+    toggleButtonState(inputEls, submitButton, options);
+  // here you add the `reset` handler
+  formElement.addEventListener("reset", () => {
+     disableButton(submitButton, inactiveButtonClass);
+  });
+}
+*/
+
 function enableValidation(options) {
-  // This works the same as Array.from [... ] - spread operator - expects array or array like object - makes a copy
   const formEls = [...document.querySelectorAll(options.formSelector)];
   formEls.forEach((formEl) => {
     formEl.addEventListener("submit", (e) => {
@@ -72,17 +77,6 @@ function enableValidation(options) {
     });
 
     setEventListeners(formEl, options);
-
-    // Look for all inputs inside of form
-    // Loop through all the inputs to see if all are valid
-    // if input is not valid
-    // get validation message
-    // add error class to input red
-    // display error message
-    // disable button
-    // if all inputs are valid
-    // enable button
-    // reset error messages
   });
 }
 
@@ -96,5 +90,3 @@ const config = {
 };
 
 enableValidation(config);
-
-//We have to write function enableValidation
