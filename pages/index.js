@@ -1,3 +1,5 @@
+import Card from "../scripts/Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,6 +26,13 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardData = {
+  name: "Cuyahoga River",
+  link: "https://images.unsplash.com/photo-1604871318776-94d7e917dc52?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+};
+
+const card = new Card(cardData);
 
 // Form Fields filled in with information from profile page
 const profileTitle = document.querySelector(".profile__title");
