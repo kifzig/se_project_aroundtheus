@@ -1,4 +1,5 @@
-import Card from "../scripts/Card.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -32,7 +33,8 @@ const cardData = {
   link: "https://images.unsplash.com/photo-1604871318776-94d7e917dc52?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
 };
 
-const card = new Card(cardData);
+const card = new Card(cardData, "#card__template");
+filled_card = card.getView();
 
 // Form Fields filled in with information from profile page
 const profileTitle = document.querySelector(".profile__title");
@@ -105,9 +107,6 @@ const addButton = document.querySelector(".profile__add-button");
 
 function openAddImageModal() {
   openModal(addModal);
-  // submitButton = modalAddImageCardForm.querySelector(".modal__button");
-  // submitButton.disabled = true;
-  // submitButton.classList.add(".modal__button_disabled");
 }
 
 addButton.addEventListener("click", openAddImageModal);
@@ -177,37 +176,39 @@ const cardTemplate = document.querySelector("#card__template").content;
 
 function getCardElement(data) {
   //Clone the template element with all its content and store in a cardElement variable
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  // const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
   //Access the card title and image that was passed in and store them in variables
-  const cardName = data["name"];
-  const cardLink = data["link"];
+  // const cardName = data["name"];
+  // const cardLink = data["link"];
 
   // Get card IMG element from the templated cardelement
-  const cardImage = cardElement.querySelector(".card__image");
+  //const cardImage = cardElement.querySelector(".card__image");
 
   //Set the path of the image to the link field of the object
   // cardElement.querySelector(".card__image").src = cardLink;
-  cardImage.src = cardLink;
+  //cardImage.src = cardLink;
 
   //Set the image alt text to the name field of the object
-  cardImage.alt = cardName;
+  //cardImage.alt = cardName;
 
   //Set the card title to the name field of the object, too
-  const cardCaption = cardElement.querySelector(".card__caption");
-  cardCaption.textContent = cardName;
+  //const cardCaption = cardElement.querySelector(".card__caption");
+  //cardCaption.textContent = cardName;
 
+  //ADDED TO Card.js------------------------------------------------
   // Create like button functionality once card is created
-  const likeButton = cardElement.querySelector(".card__like-button");
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
+  // const likeButton = cardElement.querySelector(".card__like-button");
+  // likeButton.addEventListener("click", () => {
+  //   likeButton.classList.toggle("card__like-button_active");
+  // });--------------------------------------------------------------
 
+  // ADDED to Card.js-------------------------------
   // Create delete button functionality once card is created
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  // const deleteButton = cardElement.querySelector(".card__delete-button");
+  // deleteButton.addEventListener("click", () => {
+  //   cardElement.remove();
+  // });-------------------------------------------------
 
   // Create Open Image Preview functionality - click card image for preview modal
 

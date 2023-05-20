@@ -69,6 +69,7 @@ function resetFormValidation(inputEls, submitButton, options) {
 }
 */
 
+/*********************** */
 function enableValidation(options) {
   const formEls = [...document.querySelectorAll(options.formSelector)];
   formEls.forEach((formEl) => {
