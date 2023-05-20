@@ -17,7 +17,7 @@ class FormValidator {
     errorMessageElement.classList.add(this._errorClass);
   }
 
-  hideInputError(inputElement) {
+  _hideInputError(inputElement) {
     const errorMessageElement = this._form.querySelector(
       `#${inputElement.id}-error`
     );
@@ -28,9 +28,9 @@ class FormValidator {
 
   checkInputValidity(inputEl) {
     if (!inputEl.validity.valid) {
-      showInputError(inputEl);
+      this._showInputError(inputEl);
     } else {
-      hideInputError(inputEl);
+      this._hideInputError(inputEl);
     }
   }
 
@@ -43,18 +43,18 @@ class FormValidator {
     this._submitButton.disabled = true;
   }
 
-  disableButton(submitButton, inactiveButtonClass) {
+  disableButton() {
     this._submitButton.classList.remove(this._inactiveButtonClass);
     this._submitButton.disabled = false;
   }
 
   toggleButtonState() {
     //Bring over enableButton and disableButton
-    if (hasInvalidInput()) {
-      enableButton();
+    if (this.hasInvalidInput()) {
+      this.enableButton();
       return;
     }
-    disableButton();
+    this.disableButton();
   }
 
   _setEventListeners() {
@@ -63,9 +63,17 @@ class FormValidator {
 
     this._inputList.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
-        checkInputValidity(inputEl);
-        toggleButtonState();
+        this.checkInputValidity(inputEl);
+        this.toggleButtonState();
       });
+    });
+  }
+
+  //Check this public function
+  resetFormValidation() {
+    this.toggleButtonState();
+    this._form.addEventListener("reset", (e) => {
+      this.disableButton();
     });
   }
 
@@ -74,22 +82,8 @@ class FormValidator {
       e.preventDefault();
     });
 
-    _setEventListeners(formEl, options);
+    this._setEventListeners();
   }
 }
-
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
-
-//We're going to have a new validator for each form
-//This will actually be called from index.js
-// const editFormValidator = new FormValidator();
-// const addFormValidator = new FormValidator();
 
 export default FormValidator;

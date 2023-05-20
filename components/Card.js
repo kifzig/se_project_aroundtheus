@@ -1,3 +1,5 @@
+import { openModal } from "../utils/utils.js";
+
 export default class Card {
   constructor({ name, link }, cardSelector) {
     this.name = name;
@@ -14,15 +16,18 @@ export default class Card {
       });
 
     // Delete button
-    this._cardElement(".card__delete-button").addEventListener("click", () => {
-      this._handleDeleteCard();
-    });
+    this._cardElement
+      .querySelector(".card__delete-button")
+      .addEventListener("click", () => {
+        this._handleDeleteCard();
+      });
 
     // Preview picture
     this._cardElement
+      //I'm not sure how to do this one
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        alert("Preview Image");
+        this._handlePreviewImage();
       });
   }
 
@@ -37,18 +42,32 @@ export default class Card {
     this._cardElement = null;
   }
 
+  _handlePreviewImage() {
+    const previewImageModal = document.querySelector("#preview-image-modal");
+    openModal(previewImageModal);
+    const previewCaption = document.querySelector(".modal__preview_caption");
+    const previewImage = document.querySelector(".modal__preview_image");
+    previewCaption.textContent = this.name;
+    previewImage.src = this.link;
+    previewImage.alt = this.name;
+  }
+
   _fillCardTemplate() {
     this._cardElement.querySelector(".card__image").src = this.link;
     this._cardElement.querySelector(".card__image").alt = this.name;
     this._cardElement.querySelector(".card__caption").textContent = this.name;
   }
 
-  getView() {
-    //Copy the template and get the card html
-    this._cardElement = document
+  _getTemplate() {
+    return document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+  }
+
+  getView() {
+    //Copy the template and get the card html
+    this._cardElement = this._getTemplate();
 
     // Fill in the template with image and name
     this._fillCardTemplate();
