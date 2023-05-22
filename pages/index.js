@@ -59,7 +59,7 @@ const inputTitle = document.querySelector(".modal__input_type_title");
 const inputDesc = document.querySelector(".modal__input_type_description");
 
 // Edit Profile Form Validation
-const editFormElement = editProfileModal.querySelector("#edit-profile-form");
+const editFormElement = document.forms["edit-profile-form"];
 const editFormValidator = new FormValidator(config, editFormElement);
 editFormValidator.enableValidation();
 
@@ -109,7 +109,7 @@ const inputCardPlace = document.querySelector(".modal__input_type_place");
 const inputCardURL = document.querySelector(".modal__input_type_url");
 
 // Add Image Form Validation
-const addFormElement = addModal.querySelector("#add-image-form");
+const addFormElement = document.forms["add-image-form"];
 const addFormValidator = new FormValidator(config, addFormElement);
 addFormValidator.enableValidation();
 
@@ -126,16 +126,32 @@ function closeAddImageModal() {
   closeModal(addModal);
 }
 
+function createCard(data) {
+  //Creates a card object with data {"name", "link"}
+  const cardSelector = "#card__template";
+  const newCard = new Card(data, cardSelector);
+  return newCard;
+}
+
+function getCardView(card) {
+  // Takes card data {"name", "link"} and creates the html to get it ready to insert into DOM
+  const newCardView = card.getView();
+  return newCardView;
+}
+
+function addCardView(cardView) {
+  //Adds filled card with html to DOM
+  cardsList.prepend(cardView);
+}
+
 function handleAddImageFormSubmit(evt) {
   evt.preventDefault();
   const cardPlace = inputCardPlace.value;
   const cardUrl = inputCardURL.value;
   const newCardData = { name: cardPlace, link: cardUrl };
-  const cardSelector = "#card__template";
-  const newCard = new Card(newCardData, cardSelector);
-  const newCardView = newCard.getView();
-  console.log(newCardView);
-  cardsList.prepend(newCardView);
+  const newCard = createCard(newCardData);
+  const newCardView = getCardView(newCard);
+  addCardView(newCardView);
   addFormElement.reset();
   addFormValidator.toggleButtonState();
   closeAddImageModal();
@@ -159,8 +175,8 @@ modals.forEach((modalElement) => {
 // Create a loop and add array initialCard to the webpage
 // Using card class to create and add image cards with data from array, listeners
 
-const cardSelector = "#card__template";
-initialCards.forEach((card) => {
-  const cardElement = new Card(card, cardSelector);
-  cardsList.append(cardElement.getView());
+initialCards.forEach((cardData) => {
+  const card = createCard(cardData);
+  const cardView = getCardView(card);
+  addCardView(cardView);
 });

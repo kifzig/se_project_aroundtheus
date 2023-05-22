@@ -1,5 +1,9 @@
 import { openModal } from "../utils/utils.js";
 
+const previewImageModal = document.querySelector("#preview-image-modal");
+const previewCaption = document.querySelector(".modal__preview_caption");
+const previewImage = document.querySelector(".modal__preview_image");
+
 export default class Card {
   constructor({ name, link }, cardSelector) {
     this.name = name;
@@ -43,10 +47,7 @@ export default class Card {
   }
 
   _handlePreviewImage() {
-    const previewImageModal = document.querySelector("#preview-image-modal");
     openModal(previewImageModal);
-    const previewCaption = document.querySelector(".modal__preview_caption");
-    const previewImage = document.querySelector(".modal__preview_image");
     previewCaption.textContent = this.name;
     previewImage.src = this.link;
     previewImage.alt = this.name;
