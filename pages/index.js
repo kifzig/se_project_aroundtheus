@@ -43,7 +43,30 @@ const config = {
   inactiveButtonClass: "modal__button_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
+  formSelector: ".modal__form",
 };
+
+// ------------------------------------------------
+// Validate All Forms
+//-------------------------------------------------
+
+// enable validation
+
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    // here you get the name of the form
+    const formName = formElement.getAttribute("name");
+    // here you store a validator by the `name` of the form
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
 
 // -------------PROFILE SECTION WITH Name, Picture, and Job-------------
 
@@ -108,10 +131,8 @@ const addModal = document.querySelector("#add-modal");
 const inputCardPlace = document.querySelector(".modal__input_type_place");
 const inputCardURL = document.querySelector(".modal__input_type_url");
 
-// Add Image Form Validation
+// For for Add Image modal
 const addFormElement = document.forms["add-image-form"];
-const addFormValidator = new FormValidator(config, addFormElement);
-addFormValidator.enableValidation();
 
 // Functionality for Opening the Add Image Modal
 const addButton = document.querySelector(".profile__add-button");
@@ -153,7 +174,8 @@ function handleAddImageFormSubmit(evt) {
   const newCardView = getCardView(newCard);
   addCardView(newCardView);
   addFormElement.reset();
-  addFormValidator.toggleButtonState();
+  formValidators["add-image-form"].toggleButtonState();
+  //addFormValidator.toggleButtonState();
   closeAddImageModal();
 }
 
