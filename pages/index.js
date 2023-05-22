@@ -50,7 +50,7 @@ const config = {
 // Validate All Forms
 //-------------------------------------------------
 
-// enable validation
+// Enable validation for all forms with modal__form class
 
 const formValidators = {};
 
