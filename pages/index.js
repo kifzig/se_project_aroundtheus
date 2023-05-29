@@ -33,9 +33,9 @@ const initialCards = [
 // List of all cards with images
 const cardsList = document.querySelector(".cards__list");
 
-// --------------------------------------
-// VALIDATORS Settings for Forms
-// ----------------------------------------
+/* -------------------------------------------------------------------------- */
+/*                        VALIDATORS Settings for forms                       */
+/* -------------------------------------------------------------------------- */
 
 const config = {
   inputSelector: ".modal__input",
@@ -46,9 +46,9 @@ const config = {
   formSelector: ".modal__form",
 };
 
-// ------------------------------------------------
-// Validate All Forms
-//-------------------------------------------------
+/* -------------------------------------------------------------------------- */
+/*                             Validate All Forms                             */
+/* -------------------------------------------------------------------------- */
 
 // Enable validation for all forms with modal__form class
 
@@ -120,9 +120,9 @@ function handleProfileFormSubmit(evt) {
 
 editProfileModal.addEventListener("submit", handleProfileFormSubmit);
 
-//---------------------------------------------------------------
-//--------------ADD IMAGE MODAL----------------------------------
-//---------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
+/*                               Add Image Modal                              */
+/* -------------------------------------------------------------------------- */
 
 // Add Image Modal Element
 const addModal = document.querySelector("#add-modal");
