@@ -213,6 +213,7 @@ function handleAddImageFormSubmit(evt) {
 
 addFormElement.addEventListener("submit", handleAddImageFormSubmit);
 
+/*
 // Functionality to close any modal by clicking outside of the form/image
 const modals = document.querySelectorAll(".modal");
 modals.forEach((modalElement) => {
@@ -225,6 +226,7 @@ modals.forEach((modalElement) => {
     }
   });
 });
+*/
 
 // Create a loop and add array initialCard to the webpage
 // Using card class to create and add image cards with data from array, listeners
