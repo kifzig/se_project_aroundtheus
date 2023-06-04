@@ -16,27 +16,7 @@ export default class PopupWithImage extends Popup {
   }
 
   close() {
-    super.close();
     console.log("close");
+    super.close();
   }
 }
-
-/* From Card.js 
-
-    // Preview picture
-    this._cardElement
-      .querySelector(".card__image")
-      .addEventListener("click", () => {
-        this._handlePreviewImage();
-      });
-
-  _handlePreviewImage() {
-    openModal(previewImageModal);
-    previewCaption.textContent = this.name;
-    previewImage.src = this.link;
-    previewImage.alt = this.name;
-  }
-
-
-
-*/
