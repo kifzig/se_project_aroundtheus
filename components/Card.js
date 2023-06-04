@@ -1,14 +1,16 @@
 import { openModal } from "../utils/utils.js";
-
-const previewImageModal = document.querySelector("#preview-image-modal");
-const previewCaption = document.querySelector(".modal__preview_caption");
-const previewImage = document.querySelector(".modal__preview_image");
+import {
+  previewImageModal,
+  previewCaption,
+  previewImage,
+} from "../utils/constants.js";
 
 export default class Card {
-  constructor({ name, link }, cardSelector) {
+  constructor({ name, link }, cardSelector, handleCardClick) {
     this.name = name;
     this.link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick; //when you click on card opens preview
   }
 
   _setEventListeners() {
@@ -26,13 +28,20 @@ export default class Card {
         this._handleDeleteCard();
       });
 
-    // Preview picture
+    // Preview picture - old method
+    // this._cardElement
+    //   .querySelector(".card__image")
+    //   .addEventListener("click", () => {
+    //     this._handlePreviewImage();
+    //   });
+    // //handleClick
+
     this._cardElement
-      //I'm not sure how to do this one
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handlePreviewImage();
+        this._handleCardClick;
       });
+    //handleClick
   }
 
   _handleLikeIcon() {
@@ -46,12 +55,16 @@ export default class Card {
     this._cardElement = null;
   }
 
-  _handlePreviewImage() {
-    openModal(previewImageModal);
-    previewCaption.textContent = this.name;
-    previewImage.src = this.link;
-    previewImage.alt = this.name;
-  }
+  // Old method to handle image preview
+  // _handlePreviewImage() {
+  //   // const previewImageModal = new PopupWithImage(previewImageModal);
+  //   // previewImageModal.open();
+
+  //   openModal(previewImageModal);
+  //   previewCaption.textContent = this.name;
+  //   previewImage.src = this.link;
+  //   previewImage.alt = this.name;
+  // }
 
   _fillCardTemplate() {
     this._cardElement.querySelector(".card__image").src = this.link;

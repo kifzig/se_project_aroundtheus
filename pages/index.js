@@ -1,7 +1,18 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import { closeModal } from "../utils/utils.js";
-import { openModal } from "../utils/utils.js";
+// import { closeModal } from "../utils/utils.js";
+// import { openModal } from "../utils/utils.js";
+import {
+  profileTitle,
+  profileDesc,
+  inputTitle,
+  inputDesc,
+  editProfileModal,
+  editProfileButton,
+  previewImageModal,
+} from "../utils/constants.js";
+
+import PopupWithImage from "../components/PopupWithImage.js";
 
 const initialCards = [
   {
@@ -71,37 +82,44 @@ enableValidation(config);
 // -------------PROFILE SECTION WITH Name, Picture, and Job-------------
 
 // Form Fields filled in with information from profile page
-const profileTitle = document.querySelector(".profile__title");
-const profileDesc = document.querySelector(".profile__description");
+// const profileTitle = document.querySelector(".profile__title");
+// const profileDesc = document.querySelector(".profile__description");
 
-// Edit Profile Form Modal Element
-const editProfileModal = document.querySelector("#edit-modal");
+// // Edit Profile Form Modal Element
+// const editProfileModal = document.querySelector("#edit-modal");
 
 // Input for Edit Profile Form Modal
-const inputTitle = document.querySelector(".modal__input_type_title");
-const inputDesc = document.querySelector(".modal__input_type_description");
+// const inputTitle = document.querySelector(".modal__input_type_title");
+// const inputDesc = document.querySelector(".modal__input_type_description");
 
 // Edit Profile Form Validation
 const editFormElement = document.forms["edit-profile-form"];
 const editFormValidator = new FormValidator(config, editFormElement);
 editFormValidator.enableValidation();
 
-// Edit Profile Button
-const editProfileButton = document.querySelector(".profile__edit-button");
+// // Edit Profile Button
+// const editProfileButton = document.querySelector(".profile__edit-button");
 
 function fillProfileForm(profileTitle, profileDesc) {
   inputTitle.value = profileTitle;
   inputDesc.value = profileDesc;
 }
 
+// First instance of opening a popup
+// const editProfilePopup = new PopupWithForm(editProfileModal, );
+
+// const EditProfilePopupRenderer = function ({title, desc})
+
 function handleOpenEditProfileModal() {
   openModal(editProfileModal);
   fillProfileForm(profileTitle.textContent, profileDesc.textContent);
 }
 
+//For handling open Edit Profile button
 editProfileButton.addEventListener("click", handleOpenEditProfileModal);
 
 // Functionality for Closing the Edit Profile Modal
+// Closing the Edit Profile modal
 const modalEditProfileCloseButton = document.querySelector(
   ".modal__close-button"
 );
@@ -119,6 +137,14 @@ function handleProfileFormSubmit(evt) {
 }
 
 editProfileModal.addEventListener("submit", handleProfileFormSubmit);
+
+/*
+const handleFmSubmit = function (evt) {
+  alert("Form submitted");
+};
+
+const editProfilePopup = new PopupWithForm(EditProfileModal, handleFmSubmit);
+*/
 
 /* -------------------------------------------------------------------------- */
 /*                               Add Image Modal                              */
@@ -147,10 +173,16 @@ function closeAddImageModal() {
   closeModal(addModal);
 }
 
+function handleCardClick(data) {
+  const previewImagePopup = new PopupWithImage("#preview-image-modal");
+  previewImagePopup.open(data);
+}
+
 function createCard(data) {
   //Creates a card object with data {"name", "link"}
   const cardSelector = "#card__template";
-  const newCard = new Card(data, cardSelector);
+  const newCard = new Card(data, cardSelector, handleCardClick(data));
+  //Above add handleCardClick as 3rd parameter--> but how to pass data
   return newCard;
 }
 
