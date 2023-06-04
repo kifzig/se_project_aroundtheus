@@ -125,7 +125,7 @@ const modalEditProfileCloseButton = document.querySelector(
 );
 
 function closeEditProfileModal() {
-  closeModal(editProfileModal);
+  //closeModal(editProfileModal);
 }
 
 // Save new Title (Name on Profile) and Description (Role or Job Title)
@@ -170,7 +170,7 @@ function handleOpenAddImageModal() {
 addButton.addEventListener("click", handleOpenAddImageModal);
 
 function closeAddImageModal() {
-  closeModal(addModal);
+  //closeModal(addModal);
 }
 
 function handleCardClick(data) {
@@ -221,7 +221,7 @@ modals.forEach((modalElement) => {
       evt.target.classList.contains("modal") ||
       evt.target.classList.contains("modal__close-button")
     ) {
-      closeModal(modalElement);
+      //closeModal(modalElement);
     }
   });
 });
