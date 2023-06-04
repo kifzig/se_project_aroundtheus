@@ -23,6 +23,7 @@ export default class Popup {
       evt.target.classList.contains("modal__close-button")
     ) {
       // How do I call close()  from here
+      console.log("How do I close this?");
       this.close();
     }
   }
