@@ -1,19 +1,19 @@
-import { openModal } from "../utils/utils.js";
-import {
-  previewImageModal,
-  previewCaption,
-  previewImage,
-} from "../utils/constants.js";
+// import { openModal } from "../utils/utils.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 export default class Card {
   constructor({ name, link }, cardSelector, handleCardClick) {
     this.name = name;
     this.link = link;
     this._cardSelector = cardSelector;
-    this._handleCardClick = handleCardClick; //when you click on card opens preview
+    // this._handleCardClick = handleCardClick; //when you click on card opens preview
   }
 
-  _setEventListeners() {
+  // printHandleCardClick {
+  //   console.log(this._handleCardClick);
+  // }
+
+  _setEventListeners = () => {
     // Like button
     this._cardElement
       .querySelector(".card__like-button")
@@ -39,10 +39,9 @@ export default class Card {
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleCardClick;
+        this._handleCardClick();
       });
-    //handleClick
-  }
+  };
 
   _handleLikeIcon() {
     this._cardElement
@@ -53,6 +52,14 @@ export default class Card {
   _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
+  }
+
+  _handleCardClick() {
+    const previewImagePopup = new PopupWithImage("#preview-image-modal");
+    const caption = this.name;
+    const url = this.link;
+    const data = { caption, url };
+    previewImagePopup.open(data);
   }
 
   // Old method to handle image preview

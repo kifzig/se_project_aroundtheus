@@ -12,8 +12,6 @@ import {
   previewImageModal,
 } from "../utils/constants.js";
 
-import PopupWithImage from "../components/PopupWithImage.js";
-
 const initialCards = [
   {
     name: "Yosemite",
@@ -173,16 +171,15 @@ function closeAddImageModal() {
   //closeModal(addModal);
 }
 
-function handleCardClick(data) {
-  const previewImagePopup = new PopupWithImage("#preview-image-modal");
-  previewImagePopup.open(data);
-}
+// const handleCardClick = (data) => {
+//   const previewImagePopup = new PopupWithImage("#preview-image-modal");
+//   previewImagePopup.open(data);
+// };
 
 function createCard(data) {
   //Creates a card object with data {"name", "link"}
   const cardSelector = "#card__template";
-  const newCard = new Card(data, cardSelector, handleCardClick(data));
-  //Above add handleCardClick as 3rd parameter--> but how to pass data
+  const newCard = new Card(data, cardSelector);
   return newCard;
 }
 

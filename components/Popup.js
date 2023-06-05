@@ -13,29 +13,25 @@ export default class Popup {
   }
 
   close() {
-    console.log(3);
     this._popupElement.classList.remove("modal_opened");
     document.removeEventListener("keydown", this._closeByEscape);
   }
 
-  _handleEscClose(evt) {
+  _handleEscClose = (evt) => {
+    const clickElement = this._popupElement;
     if (
-      evt.target.classList.contains(this._popupElement) ||
+      evt.target.classList.contains(clickElement) ||
       evt.target.classList.contains("modal__close-button")
-    ) {
-      // How do I call close()  from here
-      console.log("How do I close this?");
-      console.log(2);
+    )
       this.close();
-    }
-  }
+  };
 
-  _closeByEscape(e) {
-    if (e.key === "Escape") {
+  _closeByEscape = (evt) => {
+    if (evt.key === "Escape") {
       console.log("escape");
-      this.close();
+      // this.close();
     }
-  }
+  };
 
   setEventListeners() {
     // sets event listeners for close icon
