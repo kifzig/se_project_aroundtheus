@@ -15,6 +15,7 @@ export default class Popup {
   close() {
     this._popupElement.classList.remove("modal_opened");
     document.removeEventListener("keydown", this._handleEscClose);
+    this._popupElement.removeEventListener("click", this._handleClickClose);
   }
 
   _handleClickClose = (evt) => {
@@ -38,3 +39,8 @@ export default class Popup {
     document.addEventListener("keydown", this._handleEscClose);
   }
 }
+
+// Things to match to remove an event listener
+// 1. the element (this._popElement)
+// 2. event type ('click' or 'keydown')
+// 3. callback function
