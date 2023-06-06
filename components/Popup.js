@@ -14,10 +14,10 @@ export default class Popup {
 
   close() {
     this._popupElement.classList.remove("modal_opened");
-    document.removeEventListener("keydown", this._closeByEscape);
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  _handleEscClose = (evt) => {
+  _handleClickClose = (evt) => {
     const clickElement = this._popupElement;
     if (
       evt.target.classList.contains(clickElement) ||
@@ -26,16 +26,15 @@ export default class Popup {
       this.close();
   };
 
-  _closeByEscape = (evt) => {
+  _handleEscClose = (evt) => {
     if (evt.key === "Escape") {
       console.log("escape");
-      // this.close();
+      this.close();
     }
   };
 
   setEventListeners() {
-    // sets event listeners for close icon
-    this._popupElement.addEventListener("click", this._handleEscClose);
-    this._popupElement.addEventListener("keydown", this._closeByEscape);
+    this._popupElement.addEventListener("click", this._handleClickClose);
+    document.addEventListener("keydown", this._handleEscClose);
   }
 }
