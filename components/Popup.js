@@ -39,8 +39,3 @@ export default class Popup {
     document.addEventListener("keydown", this._handleEscClose);
   }
 }
-
-// Things to match to remove an event listener
-// 1. the element (this._popElement)
-// 2. event type ('click' or 'keydown')
-// 3. callback function
