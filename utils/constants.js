@@ -17,8 +17,8 @@ export const editProfileButton = document.querySelector(
 );
 
 export const editFormElement = document.forms["edit-profile-form"];
-
 export const inputSelector = ".modal__input";
+export const modalOpenSelector = ".modal_opened";
 
 //Used in Card.js
 export const previewImageModal = document.querySelector("#preview-image-modal");
