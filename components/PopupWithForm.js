@@ -16,6 +16,7 @@ export default class PopupWithForm extends Popup {
     super({ popupSelector }); // Creates a popup element
     this._popupElement.querySelector(popupSelector); // He used the form class inside of the div
     this._handleFormSubmit = handleFormSubmit;
+    this._popupForm = this._popupElement.querySelector(".modal__form");
   }
 
   open() {
@@ -33,11 +34,13 @@ export default class PopupWithForm extends Popup {
     // Collects data from all the input fields and returns
     //that data as an object
     const inputList = Array.from(document.querySelectorAll(inputSelector));
+    console.log(inputList);
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._popupElement.addEventListener("submit", this._handleFormSubmit);
+    this._getInputValues();
 
     //add submit event handler to the form
   }
@@ -56,4 +59,7 @@ const handleFmSubmit = function (evt) {
 const newCardPopup = new PopupWithForm("#add-modal", function => {});
 newCardPopup.open();
 newCardPopup.close();
+
+new PopupWithForm("#edit-profile-modal", function => {});
+
 */

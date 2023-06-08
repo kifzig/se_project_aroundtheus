@@ -1,5 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 // import { closeModal } from "../utils/utils.js";
 // import { openModal } from "../utils/utils.js";
 import {
@@ -11,6 +12,7 @@ import {
   editProfileButton,
   previewImageModal,
   initialCards,
+  editProfileModalSelector,
 } from "../utils/constants.js";
 
 // List of all cards with images
@@ -77,14 +79,24 @@ function fillProfileForm(profileTitle, profileDesc) {
   inputDesc.value = profileDesc;
 }
 
-// First instance of opening a popup
-// const editProfilePopup = new PopupWithForm(editProfileModal, );
+// -- First instance of opening a popup
+// --  const editProfilePopup = new PopupWithForm(editProfileModal, );
+// --const EditProfilePopupRenderer = function ({title, desc})
 
-// const EditProfilePopupRenderer = function ({title, desc})
+// Save new Title (Name on Profile) and Description (Role or Job Title)
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  profileTitle.textContent = inputTitle.value;
+  profileDesc.textContent = inputDesc.value;
+}
 
 function handleOpenEditProfileModal() {
-  openModal(editProfileModal);
-  fillProfileForm(profileTitle.textContent, profileDesc.textContent);
+  const profileModal = new PopupWithForm(
+    editProfileModalSelector,
+    handleProfileFormSubmit
+  );
+  profileModal.open();
+  // fillProfileForm(profileTitle.textContent, profileDesc.textContent);
 }
 
 //For handling open Edit Profile button
@@ -92,21 +104,13 @@ editProfileButton.addEventListener("click", handleOpenEditProfileModal);
 
 // Functionality for Closing the Edit Profile Modal
 // Closing the Edit Profile modal
-const modalEditProfileCloseButton = document.querySelector(
-  ".modal__close-button"
-);
+// const modalEditProfileCloseButton = document.querySelector(
+//   ".modal__close-button"
+// );
 
-function closeEditProfileModal() {
-  //closeModal(editProfileModal);
-}
-
-// Save new Title (Name on Profile) and Description (Role or Job Title)
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = inputTitle.value;
-  profileDesc.textContent = inputDesc.value;
-  closeEditProfileModal();
-}
+// function closeEditProfileModal() {
+//   //closeModal(editProfileModal);
+// }
 
 editProfileModal.addEventListener("submit", handleProfileFormSubmit);
 

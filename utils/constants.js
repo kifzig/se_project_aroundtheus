@@ -9,6 +9,7 @@ export const inputDesc = document.querySelector(
 );
 
 // Edit Profile Form Modal Element
+export const editProfileModalSelector = "#edit-profile-modal";
 export const editProfileModal = document.querySelector("#edit-profile-modal");
 
 // Edit Profile Button
