@@ -13,6 +13,7 @@ import {
   previewImageModal,
   initialCards,
   editProfileModalSelector,
+  inputSelector,
 } from "../utils/constants.js";
 
 // List of all cards with images
@@ -74,53 +75,39 @@ editFormValidator.enableValidation();
 // // Edit Profile Button
 // const editProfileButton = document.querySelector(".profile__edit-button");
 
-function fillProfileForm(profileTitle, profileDesc) {
-  inputTitle.value = profileTitle;
-  inputDesc.value = profileDesc;
-}
+// function fillProfileForm(profileTitle, profileDesc) {
+//   inputTitle.value = profileTitle;
+//   inputDesc.value = profileDesc;
+// }
 
 // -- First instance of opening a popup
 // --  const editProfilePopup = new PopupWithForm(editProfileModal, );
 // --const EditProfilePopupRenderer = function ({title, desc})
 
 // Save new Title (Name on Profile) and Description (Role or Job Title)
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = inputTitle.value;
-  profileDesc.textContent = inputDesc.value;
+
+const profileModal = new PopupWithForm(
+  editProfileModalSelector,
+  handleProfileFormSubmit
+);
+
+function handleProfileFormSubmit({ title, description }) {
+  profileTitle.textContent = title;
+  profileDesc.textContent = description;
+  profileModal.close();
 }
 
 function handleOpenEditProfileModal() {
-  const profileModal = new PopupWithForm(
-    editProfileModalSelector,
-    handleProfileFormSubmit
-  );
+  inputTitle.value = profileTitle.textContent;
+  inputDesc.value = profileDesc.textContent;
+
   profileModal.open();
-  // fillProfileForm(profileTitle.textContent, profileDesc.textContent);
 }
 
 //For handling open Edit Profile button
 editProfileButton.addEventListener("click", handleOpenEditProfileModal);
 
-// Functionality for Closing the Edit Profile Modal
-// Closing the Edit Profile modal
-// const modalEditProfileCloseButton = document.querySelector(
-//   ".modal__close-button"
-// );
-
-// function closeEditProfileModal() {
-//   //closeModal(editProfileModal);
-// }
-
-editProfileModal.addEventListener("submit", handleProfileFormSubmit);
-
-/*
-const handleFmSubmit = function (evt) {
-  alert("Form submitted");
-};
-
-const editProfilePopup = new PopupWithForm(EditProfileModal, handleFmSubmit);
-*/
+// editProfileModal.addEventListener("submit", handleProfileFormSubmit);
 
 /* -------------------------------------------------------------------------- */
 /*                               Add Image Modal                              */
