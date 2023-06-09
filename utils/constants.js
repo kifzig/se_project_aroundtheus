@@ -1,4 +1,6 @@
 // Form Fields filled in with information from profile page
+export const profileTitleSelector = ".profile__title";
+export const profileDescSelector = ".profile__description";
 export const profileTitle = document.querySelector(".profile__title");
 export const profileDesc = document.querySelector(".profile__description");
 

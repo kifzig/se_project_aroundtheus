@@ -1,6 +1,7 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 // import { closeModal } from "../utils/utils.js";
 // import { openModal } from "../utils/utils.js";
 import {
@@ -86,22 +87,25 @@ editFormValidator.enableValidation();
 
 // Save new Title (Name on Profile) and Description (Role or Job Title)
 
-const profileModal = new PopupWithForm(
+const profilePopup = new PopupWithForm(
   editProfileModalSelector,
   handleProfileFormSubmit
 );
 
+const newUser = new UserInfo(".profile__title", ".profile__description");
+
 function handleProfileFormSubmit({ title, description }) {
-  profileTitle.textContent = title;
-  profileDesc.textContent = description;
-  profileModal.close();
+  newUser.setUserInfo(title, description);
+  profilePopup.close();
 }
 
 function handleOpenEditProfileModal() {
+  newUser.setUserInfo(profileTitle.textContent, profileDesc.textContent);
+
   inputTitle.value = profileTitle.textContent;
   inputDesc.value = profileDesc.textContent;
 
-  profileModal.open();
+  profilePopup.open();
 }
 
 //For handling open Edit Profile button
