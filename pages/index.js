@@ -133,16 +133,15 @@ const addFormElement = document.forms["add-image-form"];
 const addButton = document.querySelector(".profile__add-button");
 const addImagePopup = new PopupWithForm("#add-modal", testHandler);
 
-function testHandler() {
-  console.log("testHandler");
-  // const cardPlace = inputCardPlace.value;
-  // const cardUrl = inputCardURL.value;
-  // const newCardData = { name: cardPlace, link: cardUrl };
-  // const newCard = createCard(newCardData);
-  // const newCardView = getCardView(newCard);
-  // addCardView(newCardView);
+let count = 1;
+
+function testHandler({ place, url }) {
+  const newCardData = { name: place, link: url };
+  const newCard = createCard(newCardData);
+  const newCardView = getCardView(newCard);
+  addCardView(newCardView);
+  console.log(count++);
   formValidators["add-image-form"].toggleButtonState();
-  //addFormValidator.toggleButtonState();
   addImagePopup.close();
 }
 
@@ -171,19 +170,19 @@ function addCardView(cardView) {
   cardsList.prepend(cardView);
 }
 
-function handleAddImageFormSubmit(evt) {
-  evt.preventDefault();
-  const cardPlace = inputCardPlace.value;
-  const cardUrl = inputCardURL.value;
-  const newCardData = { name: cardPlace, link: cardUrl };
-  const newCard = createCard(newCardData);
-  const newCardView = getCardView(newCard);
-  addCardView(newCardView);
-  addFormElement.reset();
-  formValidators["add-image-form"].toggleButtonState();
-  //addFormValidator.toggleButtonState();
-  closeAddImageModal();
-}
+// function handleAddImageFormSubmit(evt) {
+//   evt.preventDefault();
+//   const cardPlace = inputCardPlace.value;
+//   const cardUrl = inputCardURL.value;
+//   const newCardData = { name: cardPlace, link: cardUrl };
+//   const newCard = createCard(newCardData);
+//   const newCardView = getCardView(newCard);
+//   addCardView(newCardView);
+//   addFormElement.reset();
+//   formValidators["add-image-form"].toggleButtonState();
+//   //addFormValidator.toggleButtonState();
+//   closeAddImageModal();
+// }
 
 // addFormElement.addEventListener("submit", handleAddImageFormSubmit);
 
