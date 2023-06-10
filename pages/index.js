@@ -128,22 +128,30 @@ const inputCardURL = document.querySelector(".modal__input_type_url");
 const addFormElement = document.forms["add-image-form"];
 
 // Functionality for Opening the Add Image Modal
+
+//New Functionality with New Popup Classes
 const addButton = document.querySelector(".profile__add-button");
+const addImagePopup = new PopupWithForm("#add-modal", testHandler);
+
+function testHandler() {
+  console.log("testHandler");
+  // const cardPlace = inputCardPlace.value;
+  // const cardUrl = inputCardURL.value;
+  // const newCardData = { name: cardPlace, link: cardUrl };
+  // const newCard = createCard(newCardData);
+  // const newCardView = getCardView(newCard);
+  // addCardView(newCardView);
+  formValidators["add-image-form"].toggleButtonState();
+  //addFormValidator.toggleButtonState();
+  addImagePopup.close();
+}
 
 function handleOpenAddImageModal() {
-  openModal(addModal);
+  // openModal(addModal);
+  addImagePopup.open();
 }
 
 addButton.addEventListener("click", handleOpenAddImageModal);
-
-function closeAddImageModal() {
-  //closeModal(addModal);
-}
-
-// const handleCardClick = (data) => {
-//   const previewImagePopup = new PopupWithImage("#preview-image-modal");
-//   previewImagePopup.open(data);
-// };
 
 function createCard(data) {
   //Creates a card object with data {"name", "link"}
@@ -177,25 +185,7 @@ function handleAddImageFormSubmit(evt) {
   closeAddImageModal();
 }
 
-addFormElement.addEventListener("submit", handleAddImageFormSubmit);
-
-/*
-// Functionality to close any modal by clicking outside of the form/image
-const modals = document.querySelectorAll(".modal");
-modals.forEach((modalElement) => {
-  modalElement.addEventListener("click", (evt) => {
-    if (
-      evt.target.classList.contains("modal") ||
-      evt.target.classList.contains("modal__close-button")
-    ) {
-      //closeModal(modalElement);
-    }
-  });
-});
-*/
-
-// Create a loop and add array initialCard to the webpage
-// Using card class to create and add image cards with data from array, listeners
+// addFormElement.addEventListener("submit", handleAddImageFormSubmit);
 
 initialCards.forEach((cardData) => {
   const card = createCard(cardData);
