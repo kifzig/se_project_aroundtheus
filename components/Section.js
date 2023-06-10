@@ -1,4 +1,4 @@
-class Section {
+export default class Section {
   constructor({ items, renderer }, containerSelector) {
     // items serves as an array of data
     // renderer is for rendering that data on the page

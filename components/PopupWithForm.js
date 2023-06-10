@@ -35,7 +35,6 @@ export default class PopupWithForm extends Popup {
   }
 
   _handleSubmit = () => {
-    console.log("handleSubmit");
     const inputValues = this._getInputValues();
     this._handleFormSubmit(inputValues);
   };

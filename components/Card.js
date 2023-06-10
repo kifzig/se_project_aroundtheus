@@ -6,12 +6,13 @@ export default class Card {
     this.name = name;
     this.link = link;
     this._cardSelector = cardSelector;
-    // this._handleCardClick = handleCardClick; //when you click on card opens preview
+    this._handleCardClick = handleCardClick;
   }
 
-  // printHandleCardClick {
-  //   console.log(this._handleCardClick);
-  // }
+  _getData() {
+    const data = { name: this.name, link: this.link };
+    return data;
+  }
 
   _setEventListeners = () => {
     // Like button
@@ -28,18 +29,10 @@ export default class Card {
         this._handleDeleteCard();
       });
 
-    // Preview picture - old method
-    // this._cardElement
-    //   .querySelector(".card__image")
-    //   .addEventListener("click", () => {
-    //     this._handlePreviewImage();
-    //   });
-    // //handleClick
-
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleCardClick();
+        this._handleCardClick(this._getData());
       });
   };
 
@@ -53,25 +46,6 @@ export default class Card {
     this._cardElement.remove();
     this._cardElement = null;
   }
-
-  _handleCardClick() {
-    const previewImagePopup = new PopupWithImage("#preview-image-modal");
-    const caption = this.name;
-    const url = this.link;
-    const data = { caption, url };
-    previewImagePopup.open(data);
-  }
-
-  // Old method to handle image preview
-  // _handlePreviewImage() {
-  //   // const previewImageModal = new PopupWithImage(previewImageModal);
-  //   // previewImageModal.open();
-
-  //   openModal(previewImageModal);
-  //   previewCaption.textContent = this.name;
-  //   previewImage.src = this.link;
-  //   previewImage.alt = this.name;
-  // }
 
   _fillCardTemplate() {
     this._cardElement.querySelector(".card__image").src = this.link;

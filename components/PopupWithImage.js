@@ -6,12 +6,12 @@ export default class PopupWithImage extends Popup {
     super({ popupSelector }); // Creates a popup element
   }
 
-  open(data) {
+  open({ name, link }) {
     super.open();
 
-    previewCaption.textContent = data.caption;
-    previewImage.src = data.url;
-    previewImage.alt = data.caption;
+    previewCaption.textContent = name;
+    previewImage.src = link;
+    previewImage.alt = name;
   }
 
   close() {

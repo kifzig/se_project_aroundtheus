@@ -2,6 +2,9 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
+
 // import { closeModal } from "../utils/utils.js";
 // import { openModal } from "../utils/utils.js";
 import {
@@ -55,18 +58,9 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
-// -------------PROFILE SECTION WITH Name, Picture, and Job-------------
-
-// Form Fields filled in with information from profile page
-// const profileTitle = document.querySelector(".profile__title");
-// const profileDesc = document.querySelector(".profile__description");
-
-// // Edit Profile Form Modal Element
-// const editProfileModal = document.querySelector("#edit-modal");
-
-// Input for Edit Profile Form Modal
-// const inputTitle = document.querySelector(".modal__input_type_title");
-// const inputDesc = document.querySelector(".modal__input_type_description");
+/* -------------------------------------------------------------------------- */
+/*                               Edit Profile Modal                           */
+/* -------------------------------------------------------------------------- */
 
 // Edit Profile Form Validation
 const editFormElement = document.forms["edit-profile-form"];
@@ -87,41 +81,23 @@ function handleProfileFormSubmit({ title, description }) {
 
 function handleOpenEditProfileModal() {
   newUser.setUserInfo(profileTitle.textContent, profileDesc.textContent);
-
   inputTitle.value = profileTitle.textContent;
   inputDesc.value = profileDesc.textContent;
-
   profilePopup.open();
 }
 
 //For handling open Edit Profile button
 editProfileButton.addEventListener("click", handleOpenEditProfileModal);
 
-// editProfileModal.addEventListener("submit", handleProfileFormSubmit);
-
 /* -------------------------------------------------------------------------- */
 /*                               Add Image Modal                              */
 /* -------------------------------------------------------------------------- */
 
-// Add Image Modal Element
-const addModal = document.querySelector("#add-modal");
-
-// Inputs for Add Image modal
-const inputCardPlace = document.querySelector(".modal__input_type_place");
-const inputCardURL = document.querySelector(".modal__input_type_url");
-
-// For for Add Image modal
-const addFormElement = document.forms["add-image-form"];
-
 // Functionality for Opening the Add Image Modal
-
-//New Functionality with New Popup Classes
 const addButton = document.querySelector(".profile__add-button");
-const addImagePopup = new PopupWithForm("#add-modal", testHandler);
+const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 
-// addImagePopup.setEventListeners();
-
-function testHandler({ place, url }) {
+function handleAddImageSubmit({ place, url }) {
   const newCardData = { name: place, link: url };
   const newCard = createCard(newCardData);
   const newCardView = getCardView(newCard);
@@ -131,16 +107,25 @@ function testHandler({ place, url }) {
 }
 
 function handleOpenAddImageModal() {
-  // openModal(addModal);
   addImagePopup.open();
 }
 
 addButton.addEventListener("click", handleOpenAddImageModal);
 
+/* -------------------------------------------------------------------------- */
+/*                               Card Functions                               */
+/* -------------------------------------------------------------------------- */
+
+const previewImagePopup = new PopupWithImage("#preview-image-modal");
+
+function handleCardClick(data) {
+  previewImagePopup.open(data);
+}
+
 function createCard(data) {
   //Creates a card object with data {"name", "link"}
   const cardSelector = "#card__template";
-  const newCard = new Card(data, cardSelector);
+  const newCard = new Card(data, cardSelector, handleCardClick);
   return newCard;
 }
 
@@ -154,22 +139,6 @@ function addCardView(cardView) {
   //Adds filled card with html to DOM
   cardsList.prepend(cardView);
 }
-
-// function handleAddImageFormSubmit(evt) {
-//   evt.preventDefault();
-//   const cardPlace = inputCardPlace.value;
-//   const cardUrl = inputCardURL.value;
-//   const newCardData = { name: cardPlace, link: cardUrl };
-//   const newCard = createCard(newCardData);
-//   const newCardView = getCardView(newCard);
-//   addCardView(newCardView);
-//   addFormElement.reset();
-//   formValidators["add-image-form"].toggleButtonState();
-//   //addFormValidator.toggleButtonState();
-//   closeAddImageModal();
-// }
-
-// addFormElement.addEventListener("submit", handleAddImageFormSubmit);
 
 initialCards.forEach((cardData) => {
   const card = createCard(cardData);
