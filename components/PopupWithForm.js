@@ -15,7 +15,8 @@ export default class PopupWithForm extends Popup {
   close() {
     this._popupForm.reset();
     super.close();
-    this._popupElement.removeEventListener("submit", this._handleFormSubmit);
+    this._popupElement.removeEventListener("submit", this._handleSubmit);
+    // this._popupElement.removeEventListener("submit", this._handleFormSubmit);
   }
 
   _getInputValues() {
@@ -33,10 +34,14 @@ export default class PopupWithForm extends Popup {
     return inputObject;
   }
 
+  _handleSubmit = () => {
+    console.log("handleSubmit");
+    const inputValues = this._getInputValues();
+    this._handleFormSubmit(inputValues);
+  };
+
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement.addEventListener("submit", () => {
-      this._handleFormSubmit(this._getInputValues());
-    });
+    this._popupElement.addEventListener("submit", this._handleSubmit);
   }
 }

@@ -73,20 +73,6 @@ const editFormElement = document.forms["edit-profile-form"];
 const editFormValidator = new FormValidator(config, editFormElement);
 editFormValidator.enableValidation();
 
-// // Edit Profile Button
-// const editProfileButton = document.querySelector(".profile__edit-button");
-
-// function fillProfileForm(profileTitle, profileDesc) {
-//   inputTitle.value = profileTitle;
-//   inputDesc.value = profileDesc;
-// }
-
-// -- First instance of opening a popup
-// --  const editProfilePopup = new PopupWithForm(editProfileModal, );
-// --const EditProfilePopupRenderer = function ({title, desc})
-
-// Save new Title (Name on Profile) and Description (Role or Job Title)
-
 const profilePopup = new PopupWithForm(
   editProfileModalSelector,
   handleProfileFormSubmit
@@ -133,14 +119,13 @@ const addFormElement = document.forms["add-image-form"];
 const addButton = document.querySelector(".profile__add-button");
 const addImagePopup = new PopupWithForm("#add-modal", testHandler);
 
-let count = 1;
+// addImagePopup.setEventListeners();
 
 function testHandler({ place, url }) {
   const newCardData = { name: place, link: url };
   const newCard = createCard(newCardData);
   const newCardView = getCardView(newCard);
   addCardView(newCardView);
-  console.log(count++);
   formValidators["add-image-form"].toggleButtonState();
   addImagePopup.close();
 }
