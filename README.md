@@ -1,4 +1,4 @@
-# Project 3: Around The U.S.
+# Project 8: Around The U.S.
 
 ### Overview
 
@@ -9,7 +9,7 @@
 
 **Intro**
 
-With this website, view some of the most beautiful places in the U.S. through pictures. This project uses grid and flex box to show cards at different screen sizes using @media queries. It follows a Figma design below. It has other features like rounded corners and a round profile picture using border-radius. It is my first intentional attempt at responsive design.
+With this website, view some of the most beautiful places in the U.S. through pictures. This project uses grid and flex box to show cards at different screen sizes using @media queries. It follows a Figma design below. It has other features like rounded corners and a round profile picture using border-radius. It is my first intentional attempt at responsive design. It is using JavaScript and object oriented programming principles to add elements to the DOM.
 
 **Link to Project**
 
@@ -21,4 +21,4 @@ With this website, view some of the most beautiful places in the U.S. through pi
 
 **Plans for Improvement**
 
-This project is a work in progress and there are plans to add the ability to add photos to the gallery soon as well as more compatibility with more devices.
+This project is a work in progress and there are plans to add photos via an API soon as well as more compatibility with more devices.
