@@ -12,16 +12,10 @@ import {
   profileDesc,
   inputTitle,
   inputDesc,
-  editProfileModal,
   editProfileButton,
-  previewImageModal,
   initialCards,
   editProfileModalSelector,
-  inputSelector,
 } from "../utils/constants.js";
-
-// List of all cards with images
-const cardsList = document.querySelector(".cards__list");
 
 /* -------------------------------------------------------------------------- */
 /*                        VALIDATORS Settings for forms                       */
@@ -101,7 +95,7 @@ function handleAddImageSubmit({ place, url }) {
   const newCardData = { name: place, link: url };
   const newCard = createCard(newCardData);
   const newCardView = getCardView(newCard);
-  addCardView(newCardView);
+  cardList.addItem(newCardView);
   formValidators["add-image-form"].toggleButtonState();
   addImagePopup.close();
 }
@@ -117,6 +111,7 @@ addButton.addEventListener("click", handleOpenAddImageModal);
 /* -------------------------------------------------------------------------- */
 
 const previewImagePopup = new PopupWithImage("#preview-image-modal");
+const cardListSelector = ".cards__list";
 
 function handleCardClick(data) {
   previewImagePopup.open(data);
@@ -135,13 +130,16 @@ function getCardView(card) {
   return newCardView;
 }
 
-function addCardView(cardView) {
-  //Adds filled card with html to DOM
-  cardsList.prepend(cardView);
-}
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, "#card__template", handleCardClick);
+      const cardView = card.getView();
+      cardList.addItem(cardView);
+    },
+  },
+  cardListSelector
+);
 
-initialCards.forEach((cardData) => {
-  const card = createCard(cardData);
-  const cardView = getCardView(card);
-  addCardView(cardView);
-});
+cardList.renderItems();

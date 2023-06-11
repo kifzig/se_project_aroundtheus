@@ -1,4 +1,7 @@
 import Popup from "./Popup.js";
+import Section from "./Section.js";
+import Card from "./Card.js";
+
 import { inputSelector } from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
@@ -40,7 +43,6 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    console.log("setEventListeners from PopupWithForm");
     this._popupElement.addEventListener("submit", this._handleSubmit);
   }
 }
