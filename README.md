@@ -9,7 +9,7 @@
 
 **Intro**
 
-With this website, view some of the most beautiful places in the U.S. through pictures. This project uses grid and flex box to show cards at different screen sizes using @media queries. It follows a Figma design below. It has other features like rounded corners and a round profile picture using border-radius. It is my first intentional attempt at responsive design. It is using JavaScript and object oriented programming principles to add elements to the DOM.
+With this website, view some of the most beautiful places in the U.S. through pictures. This project uses grid and flex box to show cards at different screen sizes using @media queries. It follows a Figma design below. It has other features like rounded corners and a round profile picture using border-radius. It is my first intentional attempt at responsive design. It is using JavaScript and object oriented programming principles to add elements like the image cards to the DOM and to manage the popup forms and images.
 
 **Link to Project**
 
