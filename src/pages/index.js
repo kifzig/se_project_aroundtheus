@@ -56,8 +56,10 @@ function handleProfileFormSubmit({ title, description }) {
 }
 
 function handleOpenEditProfileModal() {
-  inputTitle.value = user.getUserInfo().profileName;
-  inputDesc.value = user.getUserInfo().description;
+  const { profileName, description } = user.getUserInfo();
+  inputTitle.value = profileName;
+  inputDesc.value = description;
+  formValidators["edit-profile-form"].toggleButtonState();
   profilePopup.open();
 }
 
@@ -80,6 +82,7 @@ function handleAddImageSubmit({ place, url }) {
 }
 
 function handleOpenAddImageModal() {
+  formValidators["add-image-form"].toggleButtonState();
   addImagePopup.open();
 }
 
