@@ -1,3 +1,16 @@
+/* -------------------------------------------------------------------------- */
+/*                        VALIDATORS Settings for forms                       */
+/* -------------------------------------------------------------------------- */
+
+export const config = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+  formSelector: ".modal__form",
+};
+
 // Form Fields filled in with information from profile page
 export const profileTitleSelector = ".profile__title";
 export const profileDescSelector = ".profile__description";

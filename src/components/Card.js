@@ -1,6 +1,3 @@
-// import { openModal } from "../utils/utils.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-
 export default class Card {
   constructor({ name, link }, cardSelector, handleCardClick) {
     this.name = name;
@@ -48,8 +45,9 @@ export default class Card {
   }
 
   _fillCardTemplate() {
-    this._cardElement.querySelector(".card__image").src = this.link;
-    this._cardElement.querySelector(".card__image").alt = this.name;
+    const imageElement = this._cardElement.querySelector(".card__image");
+    imageElement.src = this.link;
+    imageElement.alt = this.name;
     this._cardElement.querySelector(".card__caption").textContent = this.name;
   }
 
@@ -68,6 +66,7 @@ export default class Card {
     this._fillCardTemplate();
 
     // set event listeners,
+
     this._setEventListeners();
 
     return this._cardElement;

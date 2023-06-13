@@ -102,6 +102,10 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.modal__button_disabled:hover {
+  background-color: #ffffff;
+}
+
 .modal__preview {
   position: relative;
 }
@@ -143,6 +147,7 @@
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   color: #000000;
   opacity: 0.2;
+  cursor: default;
 }
 
 @media screen and (max-width: 480px) {

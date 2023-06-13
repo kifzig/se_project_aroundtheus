@@ -1,6 +1,4 @@
 import Popup from "./Popup.js";
-import Section from "./Section.js";
-import Card from "./Card.js";
 
 import { inputSelector } from "../utils/constants.js";
 
@@ -9,10 +7,6 @@ export default class PopupWithForm extends Popup {
     super({ popupSelector }); // Creates a popup element
     this._handleFormSubmit = handleFormSubmit;
     this._popupForm = this._popupElement.querySelector(".modal__form");
-  }
-
-  open() {
-    super.open();
   }
 
   close() {
@@ -26,8 +20,8 @@ export default class PopupWithForm extends Popup {
     // that data as an object
     const inputObject = {};
 
-    this._inputList = document.querySelectorAll(inputSelector);
-    this._inputList.forEach(function (input) {
+    const inputList = document.querySelectorAll(inputSelector);
+    inputList.forEach(function (input) {
       if (input.value !== "") {
         inputObject[input.name] = input.value;
       }
@@ -41,8 +35,8 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit(inputValues);
   };
 
-  setEventListeners() {
-    super.setEventListeners();
+  _setEventListeners() {
+    super._setEventListeners();
     this._popupElement.addEventListener("submit", this._handleSubmit);
   }
 }
