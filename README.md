@@ -13,7 +13,7 @@ With this website, view some of the most beautiful places in the U.S. through pi
 
 **Link to Project**
 
-- [View the deployed pages here](https://kifzig.github.io/se_project_aroundtheus/)
+- [View the deployed pages here](https://kifzig.github.io/aroundtheworld8/)
 
 **Figma**
 
