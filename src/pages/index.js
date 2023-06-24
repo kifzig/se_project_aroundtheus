@@ -4,18 +4,33 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
+import Api from "../components/Api.js";
 import "./index.css";
 
 import {
   config,
-  profileTitle,
-  profileDesc,
   inputTitle,
   inputDesc,
   editProfileButton,
   initialCards,
   editProfileModalSelector,
 } from "../utils/constants.js";
+
+/* -------------------------------------------------------------------------- */
+/*                             API                                            */
+/* -------------------------------------------------------------------------- */
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
+  headers: {
+    authorization: "dfa65752-2d8e-401e-8af5-014c787612d4",
+    "Content-Type": "application/json",
+  },
+});
+
+console.log(api.getInitialCards("cards"));
+const me = api.getUserInfo("users", "me");
+console.log(me);
 
 /* -------------------------------------------------------------------------- */
 /*                             Validate All Forms                             */

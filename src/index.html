@@ -60,11 +60,14 @@
 
                 <div class="card__description">
                   <h2 class="card__caption"></h2>
-                  <button
-                    class="card__like-button"
-                    aria-label="like image"
-                    type="button"
-                  ></button>
+                  <div class="card__like_container">
+                    <button
+                      class="card__like-button"
+                      aria-label="like image"
+                      type="button"
+                    ></button>
+                    <span class="card__like-count">0</span>
+                  </div>
                 </div>
               </li>
             </template>
@@ -113,7 +116,7 @@
             type="submit"
             disabled
           >
-            Save
+            Saving...
           </button>
         </form>
       </div>
@@ -127,7 +130,7 @@
           id="modal-add-image-close"
           type="button"
         ></button>
-        <h2 class="modal__heading">New Place</h2>
+        <h2 class="modal__heading">New place</h2>
         <form class="modal__form" id="add-image-form" name="add-image-form">
           <input
             type="text"
@@ -154,7 +157,7 @@
             type="submit"
             disabled
           >
-            Save
+            Create
           </button>
         </form>
       </div>
@@ -174,6 +177,57 @@
           alt="Preview of Image"
         />
         <h2 class="modal__preview modal__preview_caption">""</h2>
+      </div>
+    </div>
+
+    <!-- Confirm Modal-->
+    <div class="modal" id="confirm-modal">
+      <div class="modal__container">
+        <button class="modal__close-button" type="button"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <form class="modal__form" id="confirm-form" name="confirm-form">
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!--Change Profile Picture Modal-->
+    <div class="modal" id="change-profile-pic-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          id="modal-change-profile-pic-close"
+          type="button"
+        ></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form
+          class="modal__form"
+          id="change-profile-pic-form"
+          name="change-profile-pic-form"
+        >
+          <input
+            name="profile-pic-url"
+            id="profile-pic-url"
+            class="modal__input modal__input_type_url"
+            placeholder="Image URL"
+            type="url"
+            required
+          />
+          <span class="modal__error" id="modal-url-error"></span>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Saving...
+          </button>
+        </form>
       </div>
     </div>
   </body>
