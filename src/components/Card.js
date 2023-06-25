@@ -42,7 +42,7 @@ export default class Card {
       this._cardElement
         .querySelector(".card__delete-button")
         .addEventListener("click", () => {
-          this._deleteCardConfirm();
+          this._deleteCardConfirm(this.imageID);
         });
     }
 
@@ -68,6 +68,7 @@ export default class Card {
     const imageElement = this._cardElement.querySelector(".card__image");
     imageElement.src = this.link;
     imageElement.alt = this.name;
+    imageElement.id = this.imageID;
     this._cardElement.querySelector(".card__caption").textContent = this.name;
     if (this.myID !== this.ownerId) {
       console.log("This isn't your card.");

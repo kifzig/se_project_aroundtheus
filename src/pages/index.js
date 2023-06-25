@@ -45,12 +45,6 @@ api.getInitialCards("cards").then((cards) => {
   cardList.renderItems();
 });
 
-function addImageApi(place, link) {
-  api.addImageToApi("cards", place, link).then((card) => {
-    createCard(card);
-  });
-}
-
 const user = new UserInfo(
   ".profile__title",
   ".profile__description",
@@ -121,11 +115,11 @@ const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 function handleAddImageSubmit({ place, url }) {
   api.addImageToApi("cards", place, url).then((card) => {
     const newCard = createCard(card);
+    // I might need to edit this--does all the info arrive
     cardList.addItem(newCard);
   });
 
   addImagePopup.close();
-  //I need to get response back from this
 }
 
 function handleOpenAddImageModal() {
@@ -140,13 +134,16 @@ addButton.addEventListener("click", handleOpenAddImageModal);
 /* -------------------------------------------------------------------------- */
 
 const previewImagePopup = new PopupWithImage("#preview-image-modal");
+
 const deleteImageConfirmPopup = new PopupWithForm(
   "#confirm-modal",
   handleDeleteImageSubmit
 );
 
-function handleDeleteImageSubmit() {
-  console.log("confirm yes was clicked");
+function handleDeleteImageSubmit(imageId) {
+  console.log("handle delete image submit");
+  api.removeImageFromAPI("cards", imageId);
+  deleteImageConfirmPopup.close();
 }
 
 const cardListSelector = ".cards__list";
@@ -155,8 +152,11 @@ function handleCardClick(data) {
   previewImagePopup.open(data);
 }
 
-function handleDeletePopup() {
-  deleteImageConfirmPopup.open();
+function handleDeletePopup(imageId) {
+  deleteImageConfirmPopup.open(imageId);
+  // api.removeImageFromAPI("cards", imageId);
+  // Delete an image using the API - this works //
+  //api.removeImageFromAPI("cards", "649847d3915f5d0902c31bae");
 }
 
 function createCard(data) {
