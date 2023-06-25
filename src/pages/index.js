@@ -32,7 +32,6 @@ const myUserID = "7504a7a02fdb23515b5da020";
 let cardList;
 
 api.getInitialCards("cards").then((cards) => {
-  console.log(cards);
   cardList = new Section(
     {
       items: cards,
@@ -46,17 +45,11 @@ api.getInitialCards("cards").then((cards) => {
   cardList.renderItems();
 });
 
-let addResponseData = api
-  .addImageToApi(
-    "cards",
-    "Badlands",
-    "https://images.unsplash.com/photo-1541262219680-541c15f59e15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1184&q=80"
-  )
-  .then((card) => {
-    return card;
+function addImageApi(place, link) {
+  api.addImageToApi("cards", place, link).then((card) => {
+    createCard(card);
   });
-
-console.log(addResponseData);
+}
 
 const user = new UserInfo(
   ".profile__title",
@@ -126,13 +119,12 @@ const addButton = document.querySelector(".profile__add-button");
 const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 
 function handleAddImageSubmit({ place, url }) {
-  // I just added id: ownerID
-  api.addImageToApi("cards", place, url);
-  const newCardData = { name: place, link: url };
-  const newCard = createCard(newCardData);
-  cardList.addItem(newCard);
-  addImagePopup.close();
+  api.addImageToApi("cards", place, url).then((card) => {
+    const newCard = createCard(card);
+    cardList.addItem(newCard);
+  });
 
+  addImagePopup.close();
   //I need to get response back from this
 }
 

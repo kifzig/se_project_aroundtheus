@@ -71,12 +71,12 @@ export default class Api {
     });
   }
 
-  // removeImageFromAPI(path, cardId) {
-  //   fetch(`${this.baseUrl}/${path}/${cardId}`, {
-  //     method: "DELETE",
-  //     headers: this._headers,
-  //   }).catch((err) => {
-  //     console.error(err);
-  //   });
-  // }
+  removeImageFromAPI(path, cardId) {
+    fetch(`${this.baseUrl}/${path}/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
 }
