@@ -17,6 +17,6 @@ export default class Section {
 
   // public method called addItem() that take a DOM element and adds it to the container
   addItem(element) {
-    this._container.prepend(element);
+    this._container.append(element);
   }
 }

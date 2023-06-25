@@ -12,7 +12,6 @@ import {
   inputTitle,
   inputDesc,
   editProfileButton,
-  initialCards,
   editProfileModalSelector,
 } from "../utils/constants.js";
 
@@ -28,9 +27,43 @@ const api = new Api({
   },
 });
 
-console.log(api.getInitialCards("cards"));
-const me = api.getUserInfo("users", "me");
-console.log(me);
+const myUserID = "7504a7a02fdb23515b5da020";
+
+let cardList;
+
+api.getInitialCards("cards").then((cards) => {
+  console.log(cards);
+  cardList = new Section(
+    {
+      items: cards,
+      renderer: (item) => {
+        const card = createCard(item);
+        cardList.addItem(card);
+      },
+    },
+    cardListSelector
+  );
+  cardList.renderItems();
+});
+
+api
+  .addImageToApi(
+    "cards",
+    "Badlands",
+    "https://images.unsplash.com/photo-1541262219680-541c15f59e15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1184&q=80"
+  )
+  .then((card) => console.log(card));
+
+const user = new UserInfo(
+  ".profile__title",
+  ".profile__description",
+  ".profile__image"
+);
+
+api.getUserInfo("users", "me").then((u) => {
+  user.setUserInfo(u.name, u.about);
+  user.setProfileImage(u.avatar);
+});
 
 /* -------------------------------------------------------------------------- */
 /*                             Validate All Forms                             */
@@ -63,10 +96,9 @@ const profilePopup = new PopupWithForm(
   handleProfileFormSubmit
 );
 
-const user = new UserInfo(".profile__title", ".profile__description");
-
 function handleProfileFormSubmit({ title, description }) {
   user.setUserInfo(title, description);
+  api.editProfile("users", "me", title, description);
   profilePopup.close();
 }
 
@@ -90,10 +122,14 @@ const addButton = document.querySelector(".profile__add-button");
 const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 
 function handleAddImageSubmit({ place, url }) {
+  // I just added id: ownerID
+  api.addImageToApi("cards", place, url);
   const newCardData = { name: place, link: url };
   const newCard = createCard(newCardData);
   cardList.addItem(newCard);
   addImagePopup.close();
+
+  //I need to get response back from this
 }
 
 function handleOpenAddImageModal() {
@@ -108,19 +144,39 @@ addButton.addEventListener("click", handleOpenAddImageModal);
 /* -------------------------------------------------------------------------- */
 
 const previewImagePopup = new PopupWithImage("#preview-image-modal");
+const deleteImageConfirmPopup = new PopupWithForm(
+  "#confirm-modal",
+  handleDeleteImageSubmit
+);
+
+function handleDeleteImageSubmit() {
+  console.log("confirm yes was clicked");
+}
+
 const cardListSelector = ".cards__list";
 
 function handleCardClick(data) {
   previewImagePopup.open(data);
 }
 
+function handleDeletePopup() {
+  deleteImageConfirmPopup.open();
+}
+
 function createCard(data) {
   //Creates a card object with html with data {"name", "link"}
   const cardSelector = "#card__template";
-  const newCard = new Card(data, cardSelector, handleCardClick);
+  const newCard = new Card(
+    data,
+    cardSelector,
+    handleCardClick,
+    handleDeletePopup,
+    myUserID
+  );
   return newCard.getView();
 }
 
+/*
 const cardList = new Section(
   {
     items: initialCards,
@@ -132,4 +188,6 @@ const cardList = new Section(
   cardListSelector
 );
 
-cardList.renderItems();
+*/
+
+//cardList.renderItems();

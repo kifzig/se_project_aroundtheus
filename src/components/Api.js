@@ -37,36 +37,46 @@ export default class Api {
       });
   }
 
-  // Cards should be rendered after the user info is received from the server
-  // Create a function in Api.js and return the Promise.all() method
-  // Pass the array of function calls for getting user information and the list of cards to Promise.all() as a parameter
-
-  /*
-  getUserInfo() {
-    const userBaseUrl = this.baseUrl.replace("cards", "users/me");
-    return fetch(userBaseUrl, {
-      headers: {
-        authorization: this._authorization,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  getPromiseAll() {
+    return Promise.all(
+      this.getInitialCards(),
+      this.getUserInfo(((path = "users"), (id = "me")))
+    );
   }
 
-  // other methods for working with the API
-  printOptions() {
-    console.log(this.baseUrl);
-    console.log(this.headers);
-    console.log(this.authorization);
+  editProfile(path, id, fullName, profession) {
+    fetch(`${this.baseUrl}/${path}/${id}`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: fullName,
+        about: profession,
+      }),
+    });
   }
 
-  */
+  addImageToApi(path, placeName, imgLink) {
+    fetch(`${this.baseUrl}/${path}`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: placeName,
+        link: imgLink,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  // removeImageFromAPI(path, cardId) {
+  //   fetch(`${this.baseUrl}/${path}/${cardId}`, {
+  //     method: "DELETE",
+  //     headers: this._headers,
+  //   }).catch((err) => {
+  //     console.error(err);
+  //   });
+  // }
 }
