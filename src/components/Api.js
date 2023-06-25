@@ -56,7 +56,7 @@ export default class Api {
   }
 
   addImageToApi(path, placeName, imgLink) {
-    fetch(`${this.baseUrl}/${path}`, {
+    return fetch(`${this.baseUrl}/${path}`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
