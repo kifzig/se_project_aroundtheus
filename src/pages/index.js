@@ -3,6 +3,7 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithFormConfirmDelete from "../components/PopupWithFormConfirmDelete.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
 import "./index.css";
@@ -27,7 +28,7 @@ const api = new Api({
   },
 });
 
-const myUserID = "7504a7a02fdb23515b5da020";
+let myUserID = null;
 
 let cardList;
 
@@ -51,9 +52,10 @@ const user = new UserInfo(
   ".profile__image"
 );
 
-api.getUserInfo("users", "me").then((u) => {
-  user.setUserInfo(u.name, u.about);
-  user.setProfileImage(u.avatar);
+api.getUserInfo("users", "me").then((response) => {
+  user.setUserInfo(response.name, response.about);
+  user.setProfileImage(response.avatar);
+  myUserID = response._id;
 });
 
 /* -------------------------------------------------------------------------- */
@@ -135,14 +137,18 @@ addButton.addEventListener("click", handleOpenAddImageModal);
 
 const previewImagePopup = new PopupWithImage("#preview-image-modal");
 
-const deleteImageConfirmPopup = new PopupWithForm(
+const deleteImageConfirmPopup = new PopupWithFormConfirmDelete(
   "#confirm-modal",
   handleDeleteImageSubmit
 );
 
-function handleDeleteImageSubmit(imageId) {
-  console.log("handle delete image submit");
-  api.removeImageFromAPI("cards", imageId);
+function handleDeleteImageSubmit(data) {
+  api.removeImageFromAPI("cards", data.imageId);
+  // How do I take data.imageId to delete Card
+  // <li class = "card" id="imageId">
+  let cardToDelete = document.getElementById(data.imageId);
+  cardToDelete.remove();
+  cardToDelete = null;
   deleteImageConfirmPopup.close();
 }
 
@@ -152,11 +158,8 @@ function handleCardClick(data) {
   previewImagePopup.open(data);
 }
 
-function handleDeletePopup(imageId) {
-  deleteImageConfirmPopup.open(imageId);
-  // api.removeImageFromAPI("cards", imageId);
-  // Delete an image using the API - this works //
-  //api.removeImageFromAPI("cards", "649847d3915f5d0902c31bae");
+function handleDeleteImagePopup(data) {
+  deleteImageConfirmPopup.open(data);
 }
 
 function createCard(data) {
@@ -166,7 +169,7 @@ function createCard(data) {
     data,
     cardSelector,
     handleCardClick,
-    handleDeletePopup,
+    handleDeleteImagePopup,
     myUserID
   );
   return newCard.getView();

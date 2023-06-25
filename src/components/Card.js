@@ -3,7 +3,7 @@ export default class Card {
     { name, link, owner, _id, likes },
     cardSelector,
     handleCardClick,
-    deleteCardConfirm,
+    handleDeleteCardConfirmPopup,
     myID
   ) {
     this.name = name;
@@ -14,11 +14,19 @@ export default class Card {
     this.likes = likes;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._deleteCardConfirm = deleteCardConfirm;
+    this._handleDeleteCardConfirmPopup = handleDeleteCardConfirmPopup;
+    this._deleteCard = false;
   }
 
   _getData() {
-    const data = { name: this.name, link: this.link };
+    const cardToPass = this;
+    const data = {
+      name: this.name,
+      link: this.link,
+      imageId: this.imageID,
+      card: cardToPass,
+    };
+    //console.log(this);
     return data;
   }
 
@@ -42,7 +50,7 @@ export default class Card {
       this._cardElement
         .querySelector(".card__delete-button")
         .addEventListener("click", () => {
-          this._deleteCardConfirm(this.imageID);
+          this._handleDeleteCardConfirmPopup(this._getData());
         });
     }
 
@@ -59,6 +67,10 @@ export default class Card {
       .classList.toggle("card__like-button_active");
   }
 
+  removeCard() {
+    this._handleDeleteCard();
+  }
+
   _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
@@ -68,10 +80,11 @@ export default class Card {
     const imageElement = this._cardElement.querySelector(".card__image");
     imageElement.src = this.link;
     imageElement.alt = this.name;
-    imageElement.id = this.imageID;
+    // imageElement.id = this.imageID;
+    this._cardElement.id = this.imageID;
+
     this._cardElement.querySelector(".card__caption").textContent = this.name;
     if (this.myID !== this.ownerId) {
-      console.log("This isn't your card.");
       this._cardElement.querySelector(".card__delete-button").remove();
     }
   }
