@@ -4,6 +4,7 @@ export default class Card {
     cardSelector,
     handleCardClick,
     handleDeleteCardConfirmPopup,
+    handleLikeClick,
     myID
   ) {
     this.name = name;
@@ -15,7 +16,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCardConfirmPopup = handleDeleteCardConfirmPopup;
-    this._deleteCard = false;
+    this._handleLikeClick = handleLikeClick;
   }
 
   _getData() {
@@ -35,15 +36,8 @@ export default class Card {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleLikeIcon();
+        this._handleLikeClick(this._getData());
       });
-
-    // Old delete button
-    // this._cardElement
-    //   .querySelector(".card__delete-button")
-    //   .addEventListener("click", () => {
-    //     this._handleDeleteCard();
-    //   });
 
     // Delete button
     if (this.myID === this.ownerId) {
@@ -67,10 +61,6 @@ export default class Card {
       .classList.toggle("card__like-button_active");
   }
 
-  removeCard() {
-    this._handleDeleteCard();
-  }
-
   _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
@@ -80,12 +70,24 @@ export default class Card {
     const imageElement = this._cardElement.querySelector(".card__image");
     imageElement.src = this.link;
     imageElement.alt = this.name;
-    // imageElement.id = this.imageID;
     this._cardElement.id = this.imageID;
 
     this._cardElement.querySelector(".card__caption").textContent = this.name;
     if (this.myID !== this.ownerId) {
       this._cardElement.querySelector(".card__delete-button").remove();
+    }
+
+    if (this.likes.length > 0) {
+      this.likes.forEach((user) => {
+        if (user._id === this.myID) {
+          this._cardElement
+            .querySelector(".card__like-button")
+            .classList.toggle("card__like-button_active");
+        }
+      });
+
+      this._cardElement.querySelector(".card__like-count").textContent =
+        this.likes.length;
     }
   }
 

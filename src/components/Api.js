@@ -22,6 +22,17 @@ export default class Api {
       });
   }
 
+  getImageInfo(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
   getUserInfo(path, id) {
     return fetch(`${this.baseUrl}/${path}/${id}`, {
       headers: this._headers,
@@ -71,7 +82,35 @@ export default class Api {
     });
   }
 
+  belongsToMe(myId, cardId) {
+    // this.getUserInfo("users", myId).then((response) => {
+    //   console.log(response);
+    // })
+
+    this.getImageInfo(cardId).then((response) => log.console(response));
+  }
+
   removeImageFromAPI(path, cardId) {
+    fetch(`${this.baseUrl}/${path}/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  addLikeToAPI(path, cardId) {
+    //https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
+    fetch(`${this.baseUrl}/${path}/${cardId}`, {
+      method: "PUT",
+      headers: this._headers,
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  removeLikeFromAPI(path, cardId) {
+    //https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
     fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,

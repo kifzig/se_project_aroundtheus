@@ -28,6 +28,10 @@ const api = new Api({
   },
 });
 
+/*TEST LIKING THROUGH API*/
+//api.addLikeToAPI("cards/likes", "6497b17536a077091a95a3ab");
+api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
+
 let myUserID = null;
 
 let cardList;
@@ -117,7 +121,6 @@ const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 function handleAddImageSubmit({ place, url }) {
   api.addImageToApi("cards", place, url).then((card) => {
     const newCard = createCard(card);
-    // I might need to edit this--does all the info arrive
     cardList.addItem(newCard);
   });
 
@@ -144,8 +147,6 @@ const deleteImageConfirmPopup = new PopupWithFormConfirmDelete(
 
 function handleDeleteImageSubmit(data) {
   api.removeImageFromAPI("cards", data.imageId);
-  // How do I take data.imageId to delete Card
-  // <li class = "card" id="imageId">
   let cardToDelete = document.getElementById(data.imageId);
   cardToDelete.remove();
   cardToDelete = null;
@@ -162,6 +163,11 @@ function handleDeleteImagePopup(data) {
   deleteImageConfirmPopup.open(data);
 }
 
+function handleLikeClick(data) {
+  console.log(data);
+  api.belongsToMe(myUserID, data.imageId);
+}
+
 function createCard(data) {
   //Creates a card object with html with data {"name", "link"}
   const cardSelector = "#card__template";
@@ -170,6 +176,7 @@ function createCard(data) {
     cardSelector,
     handleCardClick,
     handleDeleteImagePopup,
+    handleLikeClick,
     myUserID
   );
   return newCard.getView();
