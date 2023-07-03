@@ -29,8 +29,8 @@ const api = new Api({
 });
 
 /*TEST LIKING THROUGH API*/
-//api.addLikeToAPI("cards/likes", "6497b17536a077091a95a3ab");
-api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
+// api.addLikeToAPI("cards/likes", "649e08f01a418409fbfa09d0");
+//api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
 
 let myUserID = null;
 
@@ -163,9 +163,28 @@ function handleDeleteImagePopup(data) {
   deleteImageConfirmPopup.open(data);
 }
 
-function handleLikeClick(data) {
+// Working on this functionality currently
+function handleLikeClick(data, myID) {
+  const cardOwnerID = data.card.ownerId;
   console.log(data);
-  api.belongsToMe(myUserID, data.imageId);
+  console.log(data.card.likes);
+
+  //
+
+  // How do I tell if I like this card already?
+  let userId = "none";
+  for (let i = 0; i < this.likes.length; i++) {
+    userId = this.likes[i]["_id"];
+    if (userId === myUserID) {
+      console.log("You liked this already.");
+      api.removeLikeFromAPI("cards/likes", data.imageId);
+      break;
+    }
+  }
+
+  if (userId === "none") {
+    api.addLikeToAPI("cards/likes", data.imageId);
+  }
 }
 
 function createCard(data) {
@@ -181,19 +200,3 @@ function createCard(data) {
   );
   return newCard.getView();
 }
-
-/*
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const card = createCard(item);
-      cardList.addItem(card);
-    },
-  },
-  cardListSelector
-);
-
-*/
-
-//cardList.renderItems();

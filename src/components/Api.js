@@ -23,6 +23,8 @@ export default class Api {
   }
 
   getImageInfo(cardId) {
+    console.log(`${this.baseUrl}/cards/${cardId}`);
+    console.log(this._headers);
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       headers: this._headers,
     }).then((res) => {
@@ -86,8 +88,7 @@ export default class Api {
     // this.getUserInfo("users", myId).then((response) => {
     //   console.log(response);
     // })
-
-    this.getImageInfo(cardId).then((response) => log.console(response));
+    // this.getImageInfo(cardId).then((response) => log.console(response));
   }
 
   removeImageFromAPI(path, cardId) {
@@ -111,6 +112,7 @@ export default class Api {
 
   removeLikeFromAPI(path, cardId) {
     //https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
+    console.log(path);
     fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,

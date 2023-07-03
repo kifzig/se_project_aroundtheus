@@ -36,7 +36,8 @@ export default class Card {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleLikeClick(this._getData());
+        this._handleLikeClick(this._getData(), this.myID);
+        this._handleLikeIcon();
       });
 
     // Delete button
@@ -48,18 +49,13 @@ export default class Card {
         });
     }
 
+    // Click on image for preview
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
         this._handleCardClick(this._getData());
       });
   };
-
-  _handleLikeIcon() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
-  }
 
   _handleDeleteCard() {
     this._cardElement.remove();
@@ -88,6 +84,36 @@ export default class Card {
 
       this._cardElement.querySelector(".card__like-count").textContent =
         this.likes.length;
+    }
+  }
+
+  _handleLikeIcon() {
+    // Toggles the heart
+    this._cardElement
+      .querySelector(".card__like-button")
+      .classList.toggle("card__like-button_active");
+
+    let numOfLikes = this.likes.length;
+
+    // If unliked by you and clicked, add one
+
+    // If liked by you and clicked, substract one
+
+    if (numOfLikes < 1) {
+      this._cardElement.querySelector(".card__like-count").textContent =
+        numOfLikes++;
+      this._cardElement.querySelector(".card__like-count").reload();
+    }
+
+    if (this.likes.length > 0) {
+      let userId = null;
+      for (let i = 0; i < this.likes.length; i++) {
+        userId = this.likes[i]["_id"];
+        if (userId === this.ownerId) {
+          console.log("You liked this already.");
+          break;
+        }
+      }
     }
   }
 
