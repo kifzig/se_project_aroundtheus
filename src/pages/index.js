@@ -35,10 +35,6 @@ const api = new Api({
 // api.addLikeToAPI("cards/likes", "649e08f01a418409fbfa09d0");
 // api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
 
-api.updateProfilePic(
-  "https://static.vecteezy.com/system/resources/previews/001/921/774/original/beautiful-woman-red-hair-in-frame-circular-avatar-character-free-vector.jpg"
-);
-
 let myUserID = null;
 
 let cardList;
@@ -103,7 +99,9 @@ const changeProfilePicPopup = new PopupWithForm(
 function handleChangeProfilePicSubmit(data) {
   // user.setProfileImage(imgLink);
   // api.updateProfilePic(imgLink);
-  console.log(data);
+  console.log(data.profilepicurl);
+  user.setProfileImage(data.profilepicurl);
+  api.updateProfilePic(data.profilepicurl);
   changeProfilePicPopup.close();
 }
 
@@ -197,23 +195,21 @@ function handleDeleteImagePopup(data) {
 // Working on this functionality currently
 
 function handleLikeClick(data, myID) {
-  // const cardOwnerID = data.card.ownerId;
-  // console.log(data);
-  // console.log(data.card.likes);
   // console.log(data.card.likes.length);
 
-  // api.addLikeToAPI("cards/likes", data.imageId).then((res) => {
-  //   console.log(res);
-  // });
+  //How do I get the response data from the API?
+  console.log(data);
+  api.addLikeToAPI("cards/likes", data.imageId);
 
-  api
-    .addLikeToAPI("cards/likes", data.imageId)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log("DATA", data);
-    });
+  // api
+  //   .addLikeToAPI("cards/likes", data.imageId)
+  //   .then((response) => {
+  //     console.log(response);
+  //     return response.json();
+  //   })
+  //   .then((data) => {
+  //     console.log("DATA", data);
+  //   });
 
   // How do I tell if I like this card already?
   // let userId = "none";

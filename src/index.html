@@ -28,7 +28,7 @@
         <section class="profile page__section">
           <div class="profile__image_wrapper">
             <img
-              src="<%=require('./images/jacques-cousteau.png')%>"
+              src="<%=require('./images/black.png')%>"
               alt="Avatar"
               class="profile__image"
             />
@@ -213,14 +213,14 @@
           name="change-profile-pic-form"
         >
           <input
-            name="profile-pic-url"
+            name="profilepicurl"
             id="profile-pic-url"
             class="modal__input modal__input_type_url"
             placeholder="Image URL"
             type="url"
             required
           />
-          <span class="modal__error" id="modal-url-error"></span>
+          <span class="modal__error" id="profile-pic-url-error"></span>
           <button
             class="modal__button modal__button_disabled"
             type="submit"

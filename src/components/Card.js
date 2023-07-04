@@ -88,39 +88,31 @@ export default class Card {
     }
   }
 
+  isLiked() {
+    if (this.likes.length > 0) {
+      let userId = null;
+      for (let i = 0; i < this.likes.length; i++) {
+        userId = this.likes[i]["_id"];
+        if (userId === this.ownerId) {
+          //console.log(this.likes);
+          //console.log(i, userId, this.myID);
+          //console.log(i, "You liked this already.");
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   _handleLikeIcon() {
     // Toggles the heart
 
-    console.log(this.likes);
+    //console.log("from _handleLikeIcon in card.js", this.likes);
+    //console.log(this.isLiked());
 
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
-
-    // let numOfLikes = this.likes.length;
-
-    // If unliked by you and clicked, add one
-
-    // If liked by you and clicked, substract one
-    // This is broken--I want to update the likes immediately and not sure whether to refresh
-    // or temporarily change it.
-
-    // if (numOfLikes < 1) {
-    //   this._cardElement.querySelector(".card__like-count").textContent =
-    //     numOfLikes++;
-    //   this._cardElement.querySelector(".card__like-count").reload();
-    // }
-
-    // if (this.likes.length > 0) {
-    //   let userId = null;
-    //   for (let i = 0; i < this.likes.length; i++) {
-    //     userId = this.likes[i]["_id"];
-    //     if (userId === this.ownerId) {
-    //       console.log("You liked this already.");
-    //       break;
-    //     }
-    //   }
-    // }
   }
 
   _getTemplate() {
