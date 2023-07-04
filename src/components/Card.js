@@ -98,6 +98,8 @@ export default class Card {
     // If unliked by you and clicked, add one
 
     // If liked by you and clicked, substract one
+    // This is broken--I want to update the likes immediately and not sure whether to refresh
+    // or temporarily change it.
 
     if (numOfLikes < 1) {
       this._cardElement.querySelector(".card__like-count").textContent =

@@ -14,6 +14,8 @@ import {
   inputDesc,
   editProfileButton,
   editProfileModalSelector,
+  changeProfilePicModalSelector,
+  profileImage,
 } from "../utils/constants.js";
 
 /* -------------------------------------------------------------------------- */
@@ -83,6 +85,27 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
+
+/* -------------------------------------------------------------------------- */
+/*                               Change Profile Pic  Modal                    */
+/* -------------------------------------------------------------------------- */
+
+const changeProfilePicPopup = new PopupWithForm(
+  changeProfilePicModalSelector,
+  handleChangeProfilePicSubmit
+);
+
+function handleChangeProfilePicSubmit() {
+  alert("hello");
+  changeProfilePicPopup.close();
+}
+
+function handleOpenChangeProfilePicModal() {
+  changeProfilePicPopup.open();
+}
+
+//For handling open Edit Profile button
+profileImage.addEventListener("click", handleOpenChangeProfilePicModal);
 
 /* -------------------------------------------------------------------------- */
 /*                               Edit Profile Modal                           */

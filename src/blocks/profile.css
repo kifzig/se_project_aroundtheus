@@ -4,6 +4,12 @@
   align-items: center;
 }
 
+.profile__image_wrapper {
+  position: relative;
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .profile__image {
   height: 120px;
   width: 120px;
@@ -11,6 +17,26 @@
   object-fit: cover;
   background-position: center;
   margin-right: 24px;
+}
+
+.profile__image_edit {
+  position: absolute;
+  left: 35%;
+  top: 38%;
+  opacity: 0;
+  transition: opacity 0.3 ease;
+}
+
+.profile__image:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.profile__image_wrapper:hover .profile__image_edit {
+  opacity: 1;
+}
+
+.profile__image_wrapper:hover .profile__image {
+  filter: brightness(25%);
 }
 
 .profile__info {

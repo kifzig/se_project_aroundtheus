@@ -17,6 +17,10 @@ export const profileDescSelector = ".profile__description";
 export const profileTitle = document.querySelector(".profile__title");
 export const profileDesc = document.querySelector(".profile__description");
 
+// Change Profile Picture Form Modal Element
+export const changeProfilePicModalSelector = "#change-profile-pic-modal";
+export const profileImage = document.querySelector(".profile__image");
+
 // Input for Edit Profile Form Modal
 export const inputTitle = document.querySelector(".modal__input_type_title");
 export const inputDesc = document.querySelector(
