@@ -37,8 +37,8 @@ export default class Card {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleLikeClick(this._getData(), this.myID);
-        this._handleLikeIcon();
+        this._handleLikeClick(this);
+        //this._handleLikeIcon();
       });
 
     // Delete button
@@ -89,19 +89,14 @@ export default class Card {
   }
 
   isLiked() {
-    if (this.likes.length > 0) {
-      let userId = null;
-      for (let i = 0; i < this.likes.length; i++) {
-        userId = this.likes[i]["_id"];
-        if (userId === this.ownerId) {
-          //console.log(this.likes);
-          //console.log(i, userId, this.myID);
-          //console.log(i, "You liked this already.");
-          return true;
-        }
-      }
+    // return true if card is liked by user, otherwise false
+    // loop through list of likes
+    // if any like._id matches this.myID, return true
+
+    for (let i = 0; i < this.likes.length; i++) {
+      console.log(this.myID);
+      console.log(this.likes);
     }
-    return false;
   }
 
   _handleLikeIcon() {

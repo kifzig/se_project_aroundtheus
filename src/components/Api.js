@@ -82,6 +82,21 @@ export default class Api {
     });
   }
 
+  whoAmI() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   belongsToMe(myId, cardId) {
     // this.getUserInfo("users", myId).then((response) => {
     //   console.log(response);
@@ -100,7 +115,7 @@ export default class Api {
 
   addLikeToAPI(path, cardId) {
     //https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
-    fetch(`${this.baseUrl}/${path}/${cardId}`, {
+    return fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "PUT",
       headers: this._headers,
     }).then((res) => {
@@ -114,12 +129,19 @@ export default class Api {
   removeLikeFromAPI(path, cardId) {
     //https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
 
-    fetch(`${this.baseUrl}/${path}/${cardId}`, {
+    return fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).catch((err) => {
-      console.error(err);
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   updateProfilePic(imgLink) {

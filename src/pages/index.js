@@ -34,8 +34,21 @@ const api = new Api({
 /*TEST LIKING THROUGH API*/
 // api.addLikeToAPI("cards/likes", "649e08f01a418409fbfa09d0");
 // api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
-
 let myUserID = null;
+
+myUserID = api
+  .whoAmI()
+  .then((response) => {
+    return response._id;
+  })
+  .then((myID) => {
+    return myID;
+  })
+  .then((myID) => {
+    return myID;
+  });
+
+console.log(myUserID);
 
 let cardList;
 
@@ -62,6 +75,7 @@ const user = new UserInfo(
 api.getUserInfo("users", "me").then((response) => {
   user.setUserInfo(response.name, response.about);
   user.setProfileImage(response.avatar);
+  user.setMyID(response._id);
   myUserID = response._id;
 });
 
@@ -194,38 +208,54 @@ function handleDeleteImagePopup(data) {
 
 // Working on this functionality currently
 
-function handleLikeClick(data, myID) {
-  // console.log(data.card.likes.length);
+function handleLikeClick(card) {
+  // console.log(card.imageID);
 
-  //How do I get the response data from the API?
-  console.log(data);
-  api.addLikeToAPI("cards/likes", data.imageId);
+  if (card.isLiked()) {
+    //console.log(this);
+    //console.log("isLiked is true");
+    api.removeLikeFromAPI("cards/likes", card.imageID);
+  } else {
+    //console.log(this);
+    //console.log("isLiked is false");
+    api.addLikeToAPI("cards/likes", card.imageID);
+  }
 
-  // api
-  //   .addLikeToAPI("cards/likes", data.imageId)
-  //   .then((response) => {
-  //     console.log(response);
-  //     return response.json();
-  //   })
-  //   .then((data) => {
-  //     console.log("DATA", data);
-  //   });
-
-  // How do I tell if I like this card already?
-  // let userId = "none";
-  // for (let i = 0; i < this.likes.length; i++) {
-  //   userId = this.likes[i]["_id"];
-  //   if (userId === myUserID) {
-  //     console.log("You liked this already.");
-  //     api.removeLikeFromAPI("cards/likes", data.imageId);
-  //     break;
-  //   }
-  // }
-
-  // if (userId === "none") {
-  //   api.addLikeToAPI("cards/likes", data.imageId);
-  // }
+  //api.addLikeToAPI("cards/likes", data.imageId);
 }
+
+//function handleLikeClick(data, myID) {
+// console.log(data.card.likes.length);
+
+//How do I get the response data from the API?
+//console.log(data);
+//api.addLikeToAPI("cards/likes", data.imageId);
+
+// api
+//   .addLikeToAPI("cards/likes", data.imageId)
+//   .then((response) => {
+//     console.log(response);
+//     return response.json();
+//   })
+//   .then((data) => {
+//     console.log("DATA", data);
+//   });
+
+// How do I tell if I like this card already?
+// let userId = "none";
+// for (let i = 0; i < this.likes.length; i++) {
+//   userId = this.likes[i]["_id"];
+//   if (userId === myUserID) {
+//     console.log("You liked this already.");
+//     api.removeLikeFromAPI("cards/likes", data.imageId);
+//     break;
+//   }
+// }
+
+// if (userId === "none") {
+//   api.addLikeToAPI("cards/likes", data.imageId);
+// }
+//}
 
 function createCard(data) {
   //Creates a card object with html with data {"name", "link"}

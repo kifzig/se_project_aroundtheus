@@ -21,6 +21,14 @@ export default class UserInfo {
     this._jobElement.textContent = jobInfo;
   }
 
+  setMyID(myID) {
+    this.myID = myID;
+  }
+
+  getMyID() {
+    return this.myID;
+  }
+
   setProfileImage(imgLink) {
     this._imgElement.src = imgLink;
   }
