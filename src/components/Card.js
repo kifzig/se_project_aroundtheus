@@ -17,6 +17,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteCardConfirmPopup = handleDeleteCardConfirmPopup;
     this._handleLikeClick = handleLikeClick;
+    this.like_count = likes.length;
   }
 
   _getData() {
@@ -89,11 +90,14 @@ export default class Card {
 
   _handleLikeIcon() {
     // Toggles the heart
+
+    console.log(this.likes);
+
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
 
-    let numOfLikes = this.likes.length;
+    // let numOfLikes = this.likes.length;
 
     // If unliked by you and clicked, add one
 
@@ -101,22 +105,22 @@ export default class Card {
     // This is broken--I want to update the likes immediately and not sure whether to refresh
     // or temporarily change it.
 
-    if (numOfLikes < 1) {
-      this._cardElement.querySelector(".card__like-count").textContent =
-        numOfLikes++;
-      this._cardElement.querySelector(".card__like-count").reload();
-    }
+    // if (numOfLikes < 1) {
+    //   this._cardElement.querySelector(".card__like-count").textContent =
+    //     numOfLikes++;
+    //   this._cardElement.querySelector(".card__like-count").reload();
+    // }
 
-    if (this.likes.length > 0) {
-      let userId = null;
-      for (let i = 0; i < this.likes.length; i++) {
-        userId = this.likes[i]["_id"];
-        if (userId === this.ownerId) {
-          console.log("You liked this already.");
-          break;
-        }
-      }
-    }
+    // if (this.likes.length > 0) {
+    //   let userId = null;
+    //   for (let i = 0; i < this.likes.length; i++) {
+    //     userId = this.likes[i]["_id"];
+    //     if (userId === this.ownerId) {
+    //       console.log("You liked this already.");
+    //       break;
+    //     }
+    //   }
+    // }
   }
 
   _getTemplate() {

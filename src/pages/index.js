@@ -16,6 +16,7 @@ import {
   editProfileModalSelector,
   changeProfilePicModalSelector,
   profileImage,
+  profilePicUrlSelector,
 } from "../utils/constants.js";
 
 /* -------------------------------------------------------------------------- */
@@ -32,7 +33,11 @@ const api = new Api({
 
 /*TEST LIKING THROUGH API*/
 // api.addLikeToAPI("cards/likes", "649e08f01a418409fbfa09d0");
-//api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
+// api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
+
+api.updateProfilePic(
+  "https://static.vecteezy.com/system/resources/previews/001/921/774/original/beautiful-woman-red-hair-in-frame-circular-avatar-character-free-vector.jpg"
+);
 
 let myUserID = null;
 
@@ -95,12 +100,15 @@ const changeProfilePicPopup = new PopupWithForm(
   handleChangeProfilePicSubmit
 );
 
-function handleChangeProfilePicSubmit() {
-  alert("hello");
+function handleChangeProfilePicSubmit(data) {
+  // user.setProfileImage(imgLink);
+  // api.updateProfilePic(imgLink);
+  console.log(data);
   changeProfilePicPopup.close();
 }
 
 function handleOpenChangeProfilePicModal() {
+  formValidators["change-profile-pic-form"].toggleButtonState();
   changeProfilePicPopup.open();
 }
 
@@ -187,27 +195,37 @@ function handleDeleteImagePopup(data) {
 }
 
 // Working on this functionality currently
+
 function handleLikeClick(data, myID) {
-  const cardOwnerID = data.card.ownerId;
-  console.log(data);
-  console.log(data.card.likes);
+  // const cardOwnerID = data.card.ownerId;
+  // console.log(data);
+  // console.log(data.card.likes);
+  // console.log(data.card.likes.length);
+
+  // api.addLikeToAPI("cards/likes", data.imageId).then((res) => {
+  //   console.log(res);
+  // });
+
+  api.addLikeToAPI("cards/likes", data.imageId).then((response) => {
+    console.log(response);
+  });
 
   //
 
   // How do I tell if I like this card already?
-  let userId = "none";
-  for (let i = 0; i < this.likes.length; i++) {
-    userId = this.likes[i]["_id"];
-    if (userId === myUserID) {
-      console.log("You liked this already.");
-      api.removeLikeFromAPI("cards/likes", data.imageId);
-      break;
-    }
-  }
+  // let userId = "none";
+  // for (let i = 0; i < this.likes.length; i++) {
+  //   userId = this.likes[i]["_id"];
+  //   if (userId === myUserID) {
+  //     console.log("You liked this already.");
+  //     api.removeLikeFromAPI("cards/likes", data.imageId);
+  //     break;
+  //   }
+  // }
 
-  if (userId === "none") {
-    api.addLikeToAPI("cards/likes", data.imageId);
-  }
+  // if (userId === "none") {
+  //   api.addLikeToAPI("cards/likes", data.imageId);
+  // }
 }
 
 function createCard(data) {

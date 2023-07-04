@@ -105,19 +105,38 @@ export default class Api {
     fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "PUT",
       headers: this._headers,
-    }).catch((err) => {
-      console.error(err);
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   removeLikeFromAPI(path, cardId) {
     //https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
-    console.log(path);
+
     fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     }).catch((err) => {
       console.error(err);
+    });
+  }
+
+  updateProfilePic(imgLink) {
+    // PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
+    fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me/avatar", {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: imgLink,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 }
