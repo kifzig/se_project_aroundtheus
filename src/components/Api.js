@@ -146,13 +146,16 @@ export default class Api {
 
   updateProfilePic(imgLink) {
     // PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
-    fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me/avatar", {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: imgLink,
-      }),
-    }).then((res) => {
+    return fetch(
+      "https://around.nomoreparties.co/v1/cohort-3-en/users/me/avatar",
+      {
+        method: "PATCH",
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: imgLink,
+        }),
+      }
+    ).then((res) => {
       if (res.ok) {
         return res.json();
       }

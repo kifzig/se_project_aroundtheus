@@ -93,10 +93,26 @@ export default class Card {
     // loop through list of likes
     // if any like._id matches this.myID, return true
 
+    let likeUser = null;
+
     for (let i = 0; i < this.likes.length; i++) {
-      console.log(this.myID);
-      console.log(this.likes);
+      likeUser = this.likes[i]["_id"];
+      if (this.myID === likeUser) {
+        console.log("I liked this card");
+        return true;
+      }
     }
+    console.log("I didn't like this card.");
+    return false;
+  }
+
+  setLikesInfo(numOfLikes) {
+    this._cardElement
+      .querySelector(".card__like-button")
+      .classList.toggle("card__like-button_active");
+
+    this._cardElement.querySelector(".card__like-count").textContent =
+      numOfLikes;
   }
 
   _handleLikeIcon() {

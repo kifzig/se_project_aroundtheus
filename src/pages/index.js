@@ -31,39 +31,28 @@ const api = new Api({
   },
 });
 
-/*TEST LIKING THROUGH API*/
-// api.addLikeToAPI("cards/likes", "649e08f01a418409fbfa09d0");
-// api.removeLikeFromAPI("cards/likes", "6498b0e2307bbb09a3af63c0");
 let myUserID = null;
 
-myUserID = api
-  .whoAmI()
-  .then((response) => {
-    return response._id;
-  })
-  .then((myID) => {
-    return myID;
-  })
-  .then((myID) => {
-    return myID;
-  });
-
-console.log(myUserID);
+myUserID = api.whoAmI().then((response) => {
+  return response._id;
+});
 
 let cardList;
 
 api.getInitialCards("cards").then((cards) => {
-  cardList = new Section(
-    {
-      items: cards,
-      renderer: (item) => {
-        const card = createCard(item);
-        cardList.addItem(card);
+  api.whoAmI().then((response) => {
+    cardList = new Section(
+      {
+        items: cards,
+        renderer: (item) => {
+          const card = createCard(item, response._id);
+          cardList.addItem(card);
+        },
       },
-    },
-    cardListSelector
-  );
-  cardList.renderItems();
+      cardListSelector
+    );
+    cardList.renderItems();
+  });
 });
 
 const user = new UserInfo(
@@ -102,7 +91,7 @@ const enableValidation = (config) => {
 enableValidation(config);
 
 /* -------------------------------------------------------------------------- */
-/*                               Change Profile Pic  Modal                    */
+/*                               Change Profile Pic Modal                     */
 /* -------------------------------------------------------------------------- */
 
 const changeProfilePicPopup = new PopupWithForm(
@@ -151,6 +140,7 @@ function handleOpenEditProfileModal() {
 }
 
 //For handling open Edit Profile button
+
 editProfileButton.addEventListener("click", handleOpenEditProfileModal);
 
 /* -------------------------------------------------------------------------- */
@@ -163,7 +153,7 @@ const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 
 function handleAddImageSubmit({ place, url }) {
   api.addImageToApi("cards", place, url).then((card) => {
-    const newCard = createCard(card);
+    const newCard = createCard(card, myUserID);
     cardList.addItem(newCard);
   });
 
@@ -206,58 +196,21 @@ function handleDeleteImagePopup(data) {
   deleteImageConfirmPopup.open(data);
 }
 
-// Working on this functionality currently
-
 function handleLikeClick(card) {
-  // console.log(card.imageID);
-
   if (card.isLiked()) {
-    //console.log(this);
-    //console.log("isLiked is true");
-    api.removeLikeFromAPI("cards/likes", card.imageID);
+    api.removeLikeFromAPI("cards/likes", card.imageID).then((res) => {
+      console.log(res);
+      card.setLikesInfo(res.likes.length);
+    });
   } else {
-    //console.log(this);
-    //console.log("isLiked is false");
-    api.addLikeToAPI("cards/likes", card.imageID);
+    api.addLikeToAPI("cards/likes", card.imageID).then((res) => {
+      console.log(res);
+      card.setLikesInfo(res.likes.length);
+    });
   }
-
-  //api.addLikeToAPI("cards/likes", data.imageId);
 }
 
-//function handleLikeClick(data, myID) {
-// console.log(data.card.likes.length);
-
-//How do I get the response data from the API?
-//console.log(data);
-//api.addLikeToAPI("cards/likes", data.imageId);
-
-// api
-//   .addLikeToAPI("cards/likes", data.imageId)
-//   .then((response) => {
-//     console.log(response);
-//     return response.json();
-//   })
-//   .then((data) => {
-//     console.log("DATA", data);
-//   });
-
-// How do I tell if I like this card already?
-// let userId = "none";
-// for (let i = 0; i < this.likes.length; i++) {
-//   userId = this.likes[i]["_id"];
-//   if (userId === myUserID) {
-//     console.log("You liked this already.");
-//     api.removeLikeFromAPI("cards/likes", data.imageId);
-//     break;
-//   }
-// }
-
-// if (userId === "none") {
-//   api.addLikeToAPI("cards/likes", data.imageId);
-// }
-//}
-
-function createCard(data) {
+function createCard(data, myUserID) {
   //Creates a card object with html with data {"name", "link"}
   const cardSelector = "#card__template";
   const newCard = new Card(
