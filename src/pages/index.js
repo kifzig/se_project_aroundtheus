@@ -206,11 +206,14 @@ function handleLikeClick(data, myID) {
   //   console.log(res);
   // });
 
-  api.addLikeToAPI("cards/likes", data.imageId).then((response) => {
-    console.log(response);
-  });
-
-  //
+  api
+    .addLikeToAPI("cards/likes", data.imageId)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log("DATA", data);
+    });
 
   // How do I tell if I like this card already?
   // let userId = "none";

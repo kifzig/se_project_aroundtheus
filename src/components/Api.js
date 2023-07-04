@@ -23,8 +23,6 @@ export default class Api {
   }
 
   getImageInfo(cardId) {
-    console.log(`${this.baseUrl}/cards/${cardId}`);
-    console.log(this._headers);
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       headers: this._headers,
     }).then((res) => {
