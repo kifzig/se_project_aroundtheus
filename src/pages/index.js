@@ -32,14 +32,14 @@ const api = new Api({
 
 let myUserID = null;
 
-myUserID = api.whoAmI().then((response) => {
+myUserID = api.getUserInfo("me").then((response) => {
   return response._id;
 });
 
 let cardList;
 
-api.getInitialCards("cards").then((cards) => {
-  api.whoAmI().then((response) => {
+api.getInitialData("cards").then((cards) => {
+  api.getUserInfo("me").then((response) => {
     cardList = new Section(
       {
         items: cards,
@@ -60,7 +60,7 @@ const user = new UserInfo(
   ".profile__image"
 );
 
-api.getUserInfo("users", "me").then((response) => {
+api.getUserInfo("me").then((response) => {
   user.setUserInfo(response.name, response.about);
   user.setProfileImage(response.avatar);
   user.setMyID(response._id);
@@ -194,7 +194,7 @@ const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 function handleAddImageSubmit({ place, url }) {
   renderCreating("#add-modal", true);
   api
-    .addImageToApi("cards", place, url)
+    .addImageToApi(place, url)
     .then((card) => {
       const newCard = createCard(card, myUserID);
       cardList.addItem(newCard);
@@ -228,10 +228,12 @@ const deleteImageConfirmPopup = new PopupWithFormConfirmDelete(
 
 function handleDeleteImageSubmit(data) {
   api.removeImageFromAPI("cards", data.imageId);
+  // TO DO Catch error
   let cardToDelete = document.getElementById(data.imageId);
   cardToDelete.remove();
   cardToDelete = null;
   deleteImageConfirmPopup.close();
+  // TODO Render Deleting
 }
 
 const cardListSelector = ".cards__list";
@@ -246,13 +248,23 @@ function handleDeleteImagePopup(data) {
 
 function handleLikeClick(card) {
   if (card.isLiked()) {
-    api.removeLikeFromAPI("cards/likes", card.imageID).then((res) => {
-      card.setLikesInfo(res.likes.length);
-    });
+    api
+      .removeLikeFromAPI("cards/likes", card.imageID)
+      .then((res) => {
+        card.setLikesInfo(res.likes.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   } else {
-    api.addLikeToAPI("cards/likes", card.imageID).then((res) => {
-      card.setLikesInfo(res.likes.length);
-    });
+    api
+      .addLikeToAPI("cards/likes", card.imageID)
+      .then((res) => {
+        card.setLikesInfo(res.likes.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 

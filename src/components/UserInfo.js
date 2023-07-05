@@ -12,7 +12,6 @@ export default class UserInfo {
     const userObject = {};
     userObject["profileName"] = this._nameElement.textContent;
     userObject["description"] = this._jobElement.textContent;
-    userObject["imgLink"] = this._imgElement.src;
     return userObject;
   }
 
