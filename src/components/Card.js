@@ -127,7 +127,6 @@ export default class Card {
     this._fillCardTemplate();
 
     // set event listeners,
-
     this._setEventListeners();
 
     return this._cardElement;
