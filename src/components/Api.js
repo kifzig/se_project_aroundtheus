@@ -56,14 +56,23 @@ export default class Api {
   }
 
   editProfile(path, id, fullName, profession) {
-    fetch(`${this.baseUrl}/${path}/${id}`, {
+    return fetch(`${this.baseUrl}/${path}/${id}`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: fullName,
         about: profession,
       }),
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   addImageToApi(path, placeName, imgLink) {

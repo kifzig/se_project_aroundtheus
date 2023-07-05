@@ -102,10 +102,19 @@ const changeProfilePicPopup = new PopupWithForm(
 function handleChangeProfilePicSubmit(data) {
   // user.setProfileImage(imgLink);
   // api.updateProfilePic(imgLink);
-  console.log(data.profilepicurl);
-  user.setProfileImage(data.profilepicurl);
-  api.updateProfilePic(data.profilepicurl);
-  changeProfilePicPopup.close();
+  renderSaving(changeProfilePicModalSelector, true);
+  api
+    .updateProfilePic(data.profilepicurl)
+    .then((response) => {
+      user.setProfileImage(data.profilepicurl);
+      changeProfilePicPopup.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      renderSaving(editProfileModalSelector, false);
+    });
 }
 
 function handleOpenChangeProfilePicModal() {
@@ -126,9 +135,41 @@ const profilePopup = new PopupWithForm(
 );
 
 function handleProfileFormSubmit({ title, description }) {
-  user.setUserInfo(title, description);
-  api.editProfile("users", "me", title, description);
-  profilePopup.close();
+  renderSaving(editProfileModalSelector, true);
+  api
+    .editProfile("users", "me", title, description)
+    .then((response) => {
+      user.setUserInfo(title, description);
+      profilePopup.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      renderSaving(editProfileModalSelector, false);
+    });
+}
+
+function renderSaving(popupSelector, isLoading = false) {
+  const saveButtonEl = document.querySelector(
+    `${popupSelector} .modal__button`
+  );
+  if (isLoading) {
+    saveButtonEl.textContent = "Saving...";
+  } else {
+    saveButtonEl.textContent = "Save";
+  }
+}
+
+function renderCreating(popupSelector, isLoading = false) {
+  const saveButtonEl = document.querySelector(
+    `${popupSelector} .modal__button`
+  );
+  if (isLoading) {
+    saveButtonEl.textContent = "Creating...";
+  } else {
+    saveButtonEl.textContent = "Create";
+  }
 }
 
 function handleOpenEditProfileModal() {
@@ -152,12 +193,20 @@ const addButton = document.querySelector(".profile__add-button");
 const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
 
 function handleAddImageSubmit({ place, url }) {
-  api.addImageToApi("cards", place, url).then((card) => {
-    const newCard = createCard(card, myUserID);
-    cardList.addItem(newCard);
-  });
-
-  addImagePopup.close();
+  renderCreating("#add-modal", true);
+  api
+    .addImageToApi("cards", place, url)
+    .then((card) => {
+      const newCard = createCard(card, myUserID);
+      cardList.addItem(newCard);
+      addImagePopup.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      renderCreating(editProfileModalSelector, false);
+    });
 }
 
 function handleOpenAddImageModal() {
