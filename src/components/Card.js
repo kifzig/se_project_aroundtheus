@@ -38,7 +38,6 @@ export default class Card {
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
         this._handleLikeClick(this);
-        //this._handleLikeIcon();
       });
 
     // Delete button
@@ -98,11 +97,9 @@ export default class Card {
     for (let i = 0; i < this.likes.length; i++) {
       likeUser = this.likes[i]["_id"];
       if (this.myID === likeUser) {
-        console.log("I liked this card");
         return true;
       }
     }
-    console.log("I didn't like this card.");
     return false;
   }
 
@@ -113,17 +110,6 @@ export default class Card {
 
     this._cardElement.querySelector(".card__like-count").textContent =
       numOfLikes;
-  }
-
-  _handleLikeIcon() {
-    // Toggles the heart
-
-    //console.log("from _handleLikeIcon in card.js", this.likes);
-    //console.log(this.isLiked());
-
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
   }
 
   _getTemplate() {

@@ -16,7 +16,6 @@ import {
   editProfileModalSelector,
   changeProfilePicModalSelector,
   profileImage,
-  profilePicUrlSelector,
 } from "../utils/constants.js";
 
 /* -------------------------------------------------------------------------- */
@@ -248,12 +247,10 @@ function handleDeleteImagePopup(data) {
 function handleLikeClick(card) {
   if (card.isLiked()) {
     api.removeLikeFromAPI("cards/likes", card.imageID).then((res) => {
-      console.log(res);
       card.setLikesInfo(res.likes.length);
     });
   } else {
     api.addLikeToAPI("cards/likes", card.imageID).then((res) => {
-      console.log(res);
       card.setLikesInfo(res.likes.length);
     });
   }
