@@ -12,7 +12,7 @@ export default class Section {
   // public method named renderItems()
   renderItems() {
     // this._renderItems.forEach((item) => this._renderer(item));
-    this._renderItems.forEach(this._renderer);
+    this._renderItems.reverse().forEach(this._renderer);
   }
 
   // public method called addItem() that take a DOM element and adds it to the container

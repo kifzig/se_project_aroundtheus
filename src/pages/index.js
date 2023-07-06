@@ -43,7 +43,7 @@ api
   .getInitialData("cards")
   .then((data) => {
     cards = data;
-    return api.getUserInfo("me");
+    return api.getUserInfo();
   })
   .then((response) => {
     cardList = new Section(
@@ -206,17 +206,26 @@ const previewImagePopup = new PopupWithImage("#preview-image-modal");
 
 const deleteImageConfirmPopup = new PopupWithConfirmation(
   "#confirm-modal",
-  handleDeleteImageSubmit
+  handleDeleteImageSubmit,
+  "Yes",
+  "Deleting..."
 );
 
-function handleDeleteImageSubmit(data) {
-  api.removeImageFromAPI("cards", data.imageId);
-  // TO DO Catch error
-  let cardToDelete = document.getElementById(data.imageId);
-  cardToDelete.remove();
-  cardToDelete = null;
-  deleteImageConfirmPopup.close();
-  // TODO Render Deleting
+function handleDeleteImageSubmit(card) {
+  deleteImageConfirmPopup.showLoading();
+
+  api
+    .removeImageFromAPI(card.imageID)
+    .then((data) => {
+      card.handleDeleteCard();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      deleteImageConfirmPopup.hideLoading();
+      deleteImageConfirmPopup.close();
+    });
 }
 
 const cardListSelector = ".cards__list";

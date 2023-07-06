@@ -3,7 +3,7 @@ export default class Card {
     { name, link, owner, _id, likes },
     cardSelector,
     handleCardClick,
-    handleDeleteCard,
+    handleDeleteCardPopup,
     handleLikeClick,
     myID
   ) {
@@ -15,7 +15,7 @@ export default class Card {
     this.likes = likes;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handleDeleteCard = handleDeleteCard;
+    this._handleDeleteCardPopup = handleDeleteCardPopup;
     this._handleLikeClick = handleLikeClick;
   }
 
@@ -43,7 +43,7 @@ export default class Card {
       this._cardElement
         .querySelector(".card__delete-button")
         .addEventListener("click", () => {
-          this._handleDeleteCard(this._getData());
+          this._handleDeleteCardPopup(this);
         });
     }
 
@@ -55,7 +55,7 @@ export default class Card {
       });
   };
 
-  _handleDeleteCard() {
+  handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
   }
@@ -90,15 +90,9 @@ export default class Card {
     // loop through list of likes
     // if any like._id matches this.myID, return true
 
-    let likeUser = null;
+    console.log(this.likes);
 
-    for (let i = 0; i < this.likes.length; i++) {
-      likeUser = this.likes[i]["_id"];
-      if (this.myID === likeUser) {
-        return true;
-      }
-    }
-    return false;
+    return this.likes.some((like) => like._id === this.myID);
   }
 
   setLikesInfo(numOfLikes) {

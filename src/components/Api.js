@@ -24,17 +24,14 @@ export default class Api {
     }).then(this._processResponse);
   }
 
-  getUserInfo(id) {
-    return fetch(`${this.baseUrl}/users/${id}`, {
+  getUserInfo() {
+    return fetch(`${this.baseUrl}/users/me`, {
       headers: this._headers,
     }).then(this._processResponse);
   }
 
   getPromiseAll() {
-    return Promise.all(
-      this.getInitialCards(),
-      this.getUserInfo(((path = "users"), (id = "me")))
-    );
+    return Promise.all(this.getInitialCards(), this.getUserInfo());
   }
 
   editProfile(path, id, fullName, profession) {
@@ -59,8 +56,8 @@ export default class Api {
     }).then(this._processResponse);
   }
 
-  removeImageFromAPI(path, cardId) {
-    fetch(`${this.baseUrl}/${path}/${cardId}`, {
+  removeImageFromAPI(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._processResponse);

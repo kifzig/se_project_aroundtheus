@@ -1,8 +1,8 @@
 import PopupWithForm from "./PopupWithForm.js";
 
 export default class PopupWithConfirmation extends PopupWithForm {
-  constructor(popupSelector, handleFormSubmit) {
-    super(popupSelector, handleFormSubmit);
+  constructor(popupSelector, handleFormSubmit, buttonText, loadingButtonText) {
+    super(popupSelector, handleFormSubmit, buttonText, loadingButtonText);
   }
 
   open(data) {
