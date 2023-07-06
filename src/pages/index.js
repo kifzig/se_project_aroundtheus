@@ -243,7 +243,7 @@ function handleLikeClick(card) {
     api
       .removeLikeFromAPI("cards/likes", card.imageID)
       .then((res) => {
-        card.setLikesInfo(res.likes.length);
+        card.setLikes(res.likes);
       })
       .catch((error) => {
         console.error(error);
@@ -252,7 +252,7 @@ function handleLikeClick(card) {
     api
       .addLikeToAPI("cards/likes", card.imageID)
       .then((res) => {
-        card.setLikesInfo(res.likes.length);
+        card.setLikes(res.likes);
       })
       .catch((error) => {
         console.error(error);
