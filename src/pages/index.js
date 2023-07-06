@@ -3,7 +3,7 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithFormConfirmDelete from "../components/PopupWithFormConfirmDelete.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
 import "./index.css";
@@ -30,16 +30,22 @@ const api = new Api({
   },
 });
 
-let myUserID = null;
-
-myUserID = api.getUserInfo("me").then((response) => {
-  return response._id;
-});
-
 let cardList;
+let cards;
 
-api.getInitialData("cards").then((cards) => {
-  api.getUserInfo("me").then((response) => {
+const user = new UserInfo(
+  ".profile__title",
+  ".profile__description",
+  ".profile__image"
+);
+
+api
+  .getInitialData("cards")
+  .then((data) => {
+    cards = data;
+    return api.getUserInfo("me");
+  })
+  .then((response) => {
     cardList = new Section(
       {
         items: cards,
@@ -51,21 +57,13 @@ api.getInitialData("cards").then((cards) => {
       cardListSelector
     );
     cardList.renderItems();
+
+    user.setUserInfo(response.name, response.about);
+    user.setProfileImage(response.avatar);
+  })
+  .catch((err) => {
+    console.error(err);
   });
-});
-
-const user = new UserInfo(
-  ".profile__title",
-  ".profile__description",
-  ".profile__image"
-);
-
-api.getUserInfo("me").then((response) => {
-  user.setUserInfo(response.name, response.about);
-  user.setProfileImage(response.avatar);
-  user.setMyID(response._id);
-  myUserID = response._id;
-});
 
 /* -------------------------------------------------------------------------- */
 /*                             Validate All Forms                             */
@@ -95,13 +93,13 @@ enableValidation(config);
 
 const changeProfilePicPopup = new PopupWithForm(
   changeProfilePicModalSelector,
-  handleChangeProfilePicSubmit
+  handleChangeProfilePicSubmit,
+  "Save",
+  "Saving..."
 );
 
 function handleChangeProfilePicSubmit(data) {
-  // user.setProfileImage(imgLink);
-  // api.updateProfilePic(imgLink);
-  renderSaving(changeProfilePicModalSelector, true);
+  changeProfilePicPopup.showLoading();
   api
     .updateProfilePic(data.profilepicurl)
     .then((response) => {
@@ -112,7 +110,7 @@ function handleChangeProfilePicSubmit(data) {
       console.log(error);
     })
     .finally(() => {
-      renderSaving(editProfileModalSelector, false);
+      changeProfilePicPopup.hideLoading();
     });
 }
 
@@ -130,45 +128,25 @@ profileImage.addEventListener("click", handleOpenChangeProfilePicModal);
 
 const profilePopup = new PopupWithForm(
   editProfileModalSelector,
-  handleProfileFormSubmit
+  handleProfileFormSubmit,
+  "Save",
+  "Saving..."
 );
 
 function handleProfileFormSubmit({ title, description }) {
-  renderSaving(editProfileModalSelector, true);
+  profilePopup.showLoading();
   api
     .editProfile("users", "me", title, description)
     .then((response) => {
       user.setUserInfo(title, description);
       profilePopup.close();
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      console.error(err);
     })
     .finally(() => {
-      renderSaving(editProfileModalSelector, false);
+      profilePopup.hideLoading();
     });
-}
-
-function renderSaving(popupSelector, isLoading = false) {
-  const saveButtonEl = document.querySelector(
-    `${popupSelector} .modal__button`
-  );
-  if (isLoading) {
-    saveButtonEl.textContent = "Saving...";
-  } else {
-    saveButtonEl.textContent = "Save";
-  }
-}
-
-function renderCreating(popupSelector, isLoading = false) {
-  const saveButtonEl = document.querySelector(
-    `${popupSelector} .modal__button`
-  );
-  if (isLoading) {
-    saveButtonEl.textContent = "Creating...";
-  } else {
-    saveButtonEl.textContent = "Create";
-  }
 }
 
 function handleOpenEditProfileModal() {
@@ -189,14 +167,19 @@ editProfileButton.addEventListener("click", handleOpenEditProfileModal);
 
 // Functionality for Opening the Add Image Modal
 const addButton = document.querySelector(".profile__add-button");
-const addImagePopup = new PopupWithForm("#add-modal", handleAddImageSubmit);
+const addImagePopup = new PopupWithForm(
+  "#add-modal",
+  handleAddImageSubmit,
+  "Create",
+  "Creating..."
+);
 
 function handleAddImageSubmit({ place, url }) {
-  renderCreating("#add-modal", true);
+  addImagePopup.showLoading();
   api
     .addImageToApi(place, url)
     .then((card) => {
-      const newCard = createCard(card, myUserID);
+      const newCard = createCard(card, card.owner._id);
       cardList.addItem(newCard);
       addImagePopup.close();
     })
@@ -204,7 +187,7 @@ function handleAddImageSubmit({ place, url }) {
       console.log(error);
     })
     .finally(() => {
-      renderCreating(editProfileModalSelector, false);
+      addImagePopup.hideLoading();
     });
 }
 
@@ -221,7 +204,7 @@ addButton.addEventListener("click", handleOpenAddImageModal);
 
 const previewImagePopup = new PopupWithImage("#preview-image-modal");
 
-const deleteImageConfirmPopup = new PopupWithFormConfirmDelete(
+const deleteImageConfirmPopup = new PopupWithConfirmation(
   "#confirm-modal",
   handleDeleteImageSubmit
 );
@@ -254,7 +237,7 @@ function handleLikeClick(card) {
         card.setLikesInfo(res.likes.length);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   } else {
     api
@@ -263,7 +246,7 @@ function handleLikeClick(card) {
         card.setLikesInfo(res.likes.length);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 }

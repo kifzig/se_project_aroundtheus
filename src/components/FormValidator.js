@@ -48,10 +48,6 @@ class FormValidator {
     this._submitButton.disabled = false;
   }
 
-  loadingButton() {
-    this._submitButton.textContent = "Saving...";
-  }
-
   toggleButtonState() {
     //Bring over enableButton and disableButton
     if (this.hasInvalidInput()) {

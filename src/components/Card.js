@@ -3,7 +3,7 @@ export default class Card {
     { name, link, owner, _id, likes },
     cardSelector,
     handleCardClick,
-    handleDeleteCardConfirmPopup,
+    handleDeleteCard,
     handleLikeClick,
     myID
   ) {
@@ -15,7 +15,7 @@ export default class Card {
     this.likes = likes;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handleDeleteCardConfirmPopup = handleDeleteCardConfirmPopup;
+    this._handleDeleteCard = handleDeleteCard;
     this._handleLikeClick = handleLikeClick;
   }
 
@@ -43,7 +43,7 @@ export default class Card {
       this._cardElement
         .querySelector(".card__delete-button")
         .addEventListener("click", () => {
-          this._handleDeleteCardConfirmPopup(this._getData());
+          this._handleDeleteCard(this._getData());
         });
     }
 

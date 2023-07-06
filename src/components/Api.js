@@ -15,31 +15,19 @@ export default class Api {
   getInitialData(id) {
     return fetch(`${this.baseUrl}/${id}`, {
       headers: this._headers,
-    })
-      .then(this._processResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._processResponse);
   }
 
   getImageInfo(cardId) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       headers: this._headers,
-    })
-      .then(this._processResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._processResponse);
   }
 
   getUserInfo(id) {
     return fetch(`${this.baseUrl}/users/${id}`, {
       headers: this._headers,
-    })
-      .then(this._processResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._processResponse);
   }
 
   getPromiseAll() {
@@ -57,11 +45,7 @@ export default class Api {
         name: fullName,
         about: profession,
       }),
-    })
-      .then(this._processResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._processResponse);
   }
 
   addImageToApi(placeName, imgLink) {
@@ -72,20 +56,14 @@ export default class Api {
         name: placeName,
         link: imgLink,
       }),
-    })
-      .then(this._processResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._processResponse);
   }
 
   removeImageFromAPI(path, cardId) {
     fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).catch((err) => {
-      console.error(err);
-    });
+    }).then(this._processResponse);
   }
 
   addLikeToAPI(path, cardId) {
@@ -99,11 +77,7 @@ export default class Api {
     return fetch(`${this.baseUrl}/${path}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._processResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._processResponse);
   }
 
   updateProfilePic(imgLink) {
