@@ -34,8 +34,8 @@ export default class Api {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-  editProfile(path, id, fullName, profession) {
-    return fetch(`${this.baseUrl}/${path}/${id}`, {
+  editProfile(fullName, profession) {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({

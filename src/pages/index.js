@@ -132,7 +132,7 @@ const profilePopup = new PopupWithForm(
 function handleProfileFormSubmit({ title, description }) {
   profilePopup.showLoading();
   api
-    .editProfile("users", "me", title, description)
+    .editProfile(title, description)
     .then((response) => {
       user.setUserInfo(title, description);
       profilePopup.close();
