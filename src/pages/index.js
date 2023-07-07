@@ -214,13 +214,13 @@ function handleDeleteImageSubmit(card) {
     .removeImageFromAPI(card.imageID)
     .then((data) => {
       card.handleDeleteCard();
+      deleteImageConfirmPopup.close();
     })
     .catch((error) => {
       console.log(error);
     })
     .finally(() => {
       deleteImageConfirmPopup.hideLoading();
-      deleteImageConfirmPopup.close();
     });
 }
 
@@ -237,7 +237,7 @@ function handleDeleteImagePopup(data) {
 function handleLikeClick(card) {
   if (card.isLiked()) {
     api
-      .removeLikeFromAPI("cards/likes", card.imageID)
+      .removeLikeFromAPI(card.imageID)
       .then((res) => {
         card.setLikes(res.likes);
       })
@@ -246,7 +246,7 @@ function handleLikeClick(card) {
       });
   } else {
     api
-      .addLikeToAPI("cards/likes", card.imageID)
+      .addLikeToAPI(card.imageID)
       .then((res) => {
         card.setLikes(res.likes);
       })

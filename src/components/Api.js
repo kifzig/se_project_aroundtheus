@@ -63,15 +63,15 @@ export default class Api {
     }).then(this._processResponse);
   }
 
-  addLikeToAPI(path, cardId) {
-    return fetch(`${this.baseUrl}/${path}/${cardId}`, {
+  addLikeToAPI(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._headers,
     }).then(this._processResponse);
   }
 
-  removeLikeFromAPI(path, cardId) {
-    return fetch(`${this.baseUrl}/${path}/${cardId}`, {
+  removeLikeFromAPI(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._processResponse);

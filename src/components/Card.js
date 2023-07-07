@@ -75,9 +75,7 @@ export default class Card {
       this._cardElement.querySelector(".card__delete-button").remove();
     }
 
-    if (this.isLiked()) {
-      this._renderLikes();
-    }
+    this._renderLikes();
   }
 
   setLikes(numOfLikes) {
