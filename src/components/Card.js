@@ -10,7 +10,7 @@ export default class Card {
     this.name = name;
     this.link = link;
     this._ownerId = owner._id;
-    this.myID = myID;
+    this._myID = myID;
     this.imageID = _id;
     this._likes = likes;
     this._cardSelector = cardSelector;
@@ -39,7 +39,7 @@ export default class Card {
       });
 
     // Delete button
-    if (this.myID === this._ownerId) {
+    if (this._myID === this._ownerId) {
       this._cardElement
         .querySelector(".card__delete-button")
         .addEventListener("click", () => {
@@ -61,7 +61,7 @@ export default class Card {
   }
 
   isLiked() {
-    return this._likes.some((like) => like._id === this.myID);
+    return this._likes.some((like) => like._id === this._myID);
   }
 
   _fillCardTemplate() {
@@ -71,7 +71,7 @@ export default class Card {
     this._cardElement.id = this.imageID;
 
     this._cardElement.querySelector(".card__caption").textContent = this.name;
-    if (this.myID !== this._ownerId) {
+    if (this._myID !== this._ownerId) {
       this._cardElement.querySelector(".card__delete-button").remove();
     }
 

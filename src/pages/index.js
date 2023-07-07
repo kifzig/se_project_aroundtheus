@@ -40,17 +40,13 @@ const user = new UserInfo(
 );
 
 api
-  .getInitialData("cards")
-  .then((data) => {
-    cards = data;
-    return api.getUserInfo();
-  })
-  .then((response) => {
+  .getInitialData()
+  .then(([cards, userData]) => {
     cardList = new Section(
       {
         items: cards,
         renderer: (item) => {
-          const card = createCard(item, response._id);
+          const card = createCard(item, userData._id);
           cardList.addItem(card);
         },
       },
@@ -58,8 +54,8 @@ api
     );
     cardList.renderItems();
 
-    user.setUserInfo(response.name, response.about);
-    user.setProfileImage(response.avatar);
+    user.setUserInfo(userData.name, userData.about);
+    user.setProfileImage(userData.avatar);
   })
   .catch((err) => {
     console.error(err);

@@ -31,4 +31,8 @@ export default class UserInfo {
   setProfileImage(imgLink) {
     this._imgElement.src = imgLink;
   }
+
+  getProfileImage() {
+    return this._imgElement.src;
+  }
 }

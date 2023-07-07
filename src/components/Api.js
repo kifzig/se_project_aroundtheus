@@ -12,8 +12,8 @@ export default class Api {
     return Promise.reject(`Error: ${res.status}`);
   };
 
-  getInitialData(id) {
-    return fetch(`${this.baseUrl}/${id}`, {
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
       headers: this._headers,
     }).then(this._processResponse);
   }
@@ -30,8 +30,8 @@ export default class Api {
     }).then(this._processResponse);
   }
 
-  getPromiseAll() {
-    return Promise.all(this.getInitialCards(), this.getUserInfo());
+  getInitialData() {
+    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
   editProfile(path, id, fullName, profession) {
